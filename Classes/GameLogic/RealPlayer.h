@@ -12,5 +12,4 @@ public:
     RealPlayer(PlayerSex sex ,IGameEngineEventListener* pGameEngineEventListener);
 };
 
-
 #endif //COCOSTUDIO_MAHJONG_REALPLAYER_H

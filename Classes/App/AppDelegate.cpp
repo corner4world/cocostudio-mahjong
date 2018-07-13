@@ -23,8 +23,8 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
 #include "GameConfig.h"
+#include "LoadingScene.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -103,8 +103,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     cocos2d::FileUtils::getInstance()->setSearchPaths(searchPath);
     //加载配置
     GameConfig::getInstance()->loadConfig();
-    // create a scene. it's an autorelease object
-    new ViewControl();
+    Director::getInstance()->runWithScene(LoadingScene::create());
     return true;
 }
 

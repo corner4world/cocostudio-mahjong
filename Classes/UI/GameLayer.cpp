@@ -9,7 +9,7 @@
 #include "AIEngine.h"
 #include "SetLayer.h"
 #include "GameConfig.h"
-
+#include "AlertDlg.h"
 
 GameLayer::GameLayer() {
     m_CurPlayer = 0;
@@ -1494,7 +1494,15 @@ void GameLayer::onTouchEnded(ui::Widget *pWidget, const char *pName) {
         m_pGameOverNode = NULL;
         m_GameEngine->onGameRestart();              //重新开始游戏
     } else if (strcmp(pName, "Button_Exit") == 0) {     //退出游戏按钮
-        GameSceneManager::getInstance()->confirm("退出游戏后，本局游戏将直接结束无法恢复，确定是否退出？", false, false, this, CC_CALLFUNCN_SELECTOR(GameLayer::exitGame));
+        auto alert = AlertDlg::create();
+        alert->setAlertType(AlertDlg::ENUM_CONFIRM);
+        alert->setCallback([]() {
+            GameSceneManager::getInstance()->end();
+        }, []() {
+            DialogManager::shared()->closeAllDialog();
+        });
+        alert->setText("退出游戏后，本局游戏将直接结束无法恢复，确定是否退出？");
+        DialogManager::shared()->showDialog(alert);
     } else if (strcmp(pName, "Button_Set") == 0) {      //游戏设置按钮
         m_pLayer->addChild(SetLayer::create()->GetLayer()); //显示设置层
     }

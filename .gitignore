@@ -1,4 +1,11 @@
 cocos2d
-proj.android/.idea
-proj.ios_mac/.idea
-proj.ios_mac/cocostudio-mahjong.xcodeproj/project.xcworkspace/xcuserdata/farmer.xcuserdatad
+.idea
+project.xcworkspace
+.vs
+Debug.Win32
+*.xcuserdatad
+*.udf
+
+
+
+
