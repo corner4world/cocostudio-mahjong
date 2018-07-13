@@ -1,10 +1,3 @@
-//
-//  WelcomeDlg.cpp
-//  Qv
-//
-//  Created by iqiang on 14/10/22.
-//
-//
 #include "WelcomeDlg.h"
 #include "AlertDlg.h"
 #include "GameSceneManager.h"

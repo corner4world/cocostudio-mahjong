@@ -1,6 +1,6 @@
 
-#ifndef __Qv__PlayScene__
-#define __Qv__PlayScene__
+#ifndef __COCOSTUDIO_MAHJONG__PlayScene__
+#define __COCOSTUDIO_MAHJONG__PlayScene__
 
 #include "BaseScene.h"
 #include "IDialog.h"
@@ -19,4 +19,4 @@ public:
     CREATE_FUNC(PlayScene);
 };
 
-#endif /* defined(__Qv__PlayScene__) */
+#endif /* defined(__COCOSTUDIO_MAHJONG__PlayScene__) */

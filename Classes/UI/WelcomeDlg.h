@@ -1,5 +1,5 @@
-#ifndef __Qv__WelcomeDlg__
-#define __Qv__WelcomeDlg__
+#ifndef __COCOSTUDIO_MAHJONG__WelcomeDlg__
+#define __COCOSTUDIO_MAHJONG__WelcomeDlg__
 
 #include "IDialog.h"
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif /* defined(__Qv__WelcomeDlg__) */
+#endif /* defined(__COCOSTUDIO_MAHJONG__WelcomeDlg__) */

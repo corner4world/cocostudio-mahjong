@@ -1,6 +1,6 @@
 
-#ifndef __Qv__BaseScene__
-#define __Qv__BaseScene__
+#ifndef __COCOSTUDIO_MAHJONG__BaseScene__
+#define __COCOSTUDIO_MAHJONG__BaseScene__
 
 #include "Common.h"
 #include "DialogManager.h"
@@ -32,4 +32,4 @@ protected:
     EventListenerKeyboard* m_androidEvent;
 };
 
-#endif /* defined(__Qv__BaseScene__) */
+#endif /* defined(__COCOSTUDIO_MAHJONG__BaseScene__) */
