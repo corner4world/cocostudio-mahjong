@@ -92,6 +92,9 @@ protected:
         }
         return ret;
     }
+    Node* getChildByName(std::string name) const {
+        return getChildByName(name.c_str());
+    }
 
 protected:
     bool registerCtrl(const char* name, Node** ctrl) {
