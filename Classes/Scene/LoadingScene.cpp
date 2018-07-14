@@ -24,9 +24,7 @@ bool LoadingScene::init()
 void LoadingScene::onEnter()
 {
     BaseScene::onEnter();
-    if(!DialogManager::shared()->isAnyDialogShown()) {
-        DialogManager::shared()->showDialog(WelcomeDlg::create());
-    }
+    this->addChild(WelcomeDlg::create());
 }
 
 void LoadingScene::onExit()
