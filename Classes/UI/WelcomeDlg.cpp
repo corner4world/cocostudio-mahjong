@@ -1,6 +1,5 @@
 #include "WelcomeDlg.h"
 #include "AlertDlg.h"
-#include "GameSceneManager.h"
 #include "PlayScene.h"
 
 using namespace std;

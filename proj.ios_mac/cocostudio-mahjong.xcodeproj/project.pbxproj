@@ -46,8 +46,6 @@
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		AC09DC6920F8F5D700B1348D /* DialogManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC6520F8F5D700B1348D /* DialogManager.cpp */; };
 		AC09DC6A20F8F5D700B1348D /* DialogManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC6520F8F5D700B1348D /* DialogManager.cpp */; };
-		AC09DC6B20F8F5D700B1348D /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC6720F8F5D700B1348D /* GameSceneManager.cpp */; };
-		AC09DC6C20F8F5D700B1348D /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC6720F8F5D700B1348D /* GameSceneManager.cpp */; };
 		AC09DC7320F8F68300B1348D /* BaseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC7120F8F68300B1348D /* BaseScene.cpp */; };
 		AC09DC7420F8F68300B1348D /* BaseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC7120F8F68300B1348D /* BaseScene.cpp */; };
 		AC09DC7B20F8F75700B1348D /* PlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC7720F8F75700B1348D /* PlayScene.cpp */; };
@@ -168,8 +166,6 @@
 		AC09DC6320F8F59500B1348D /* IDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDialog.h; sourceTree = "<group>"; };
 		AC09DC6520F8F5D700B1348D /* DialogManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DialogManager.cpp; sourceTree = "<group>"; };
 		AC09DC6620F8F5D700B1348D /* DialogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogManager.h; sourceTree = "<group>"; };
-		AC09DC6720F8F5D700B1348D /* GameSceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameSceneManager.cpp; sourceTree = "<group>"; };
-		AC09DC6820F8F5D700B1348D /* GameSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneManager.h; sourceTree = "<group>"; };
 		AC09DC6D20F8F62E00B1348D /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		AC09DC7020F8F68300B1348D /* BaseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseScene.h; sourceTree = "<group>"; };
 		AC09DC7120F8F68300B1348D /* BaseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseScene.cpp; sourceTree = "<group>"; };
@@ -433,8 +429,6 @@
 			children = (
 				AC09DC6520F8F5D700B1348D /* DialogManager.cpp */,
 				AC09DC6620F8F5D700B1348D /* DialogManager.h */,
-				AC09DC6720F8F5D700B1348D /* GameSceneManager.cpp */,
-				AC09DC6820F8F5D700B1348D /* GameSceneManager.h */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -624,7 +618,6 @@
 				AC09DC8620F8FE9000B1348D /* AlertDlg.cpp in Sources */,
 				AC09DC7D20F8F75700B1348D /* LoadingScene.cpp in Sources */,
 				B39AA641EC0D1FC96F1B6784 /* GameLogic.cpp in Sources */,
-				AC09DC6B20F8F5D700B1348D /* GameSceneManager.cpp in Sources */,
 				AC09DC7B20F8F75700B1348D /* PlayScene.cpp in Sources */,
 				AC09DC7320F8F68300B1348D /* BaseScene.cpp in Sources */,
 				B39AAF868B3B888C4E72C2EF /* GameEngine.cpp in Sources */,
@@ -652,7 +645,6 @@
 				B39AAA4AADFAE20037337BEE /* AIEngine.cpp in Sources */,
 				AC09DC8720F8FE9000B1348D /* AlertDlg.cpp in Sources */,
 				AC09DC7C20F8F75700B1348D /* PlayScene.cpp in Sources */,
-				AC09DC6C20F8F5D700B1348D /* GameSceneManager.cpp in Sources */,
 				AC09DC7420F8F68300B1348D /* BaseScene.cpp in Sources */,
 				AC09DC6A20F8F5D700B1348D /* DialogManager.cpp in Sources */,
 				B39AAE1F810EE6A838D45E07 /* SetLayer.cpp in Sources */,

@@ -11,7 +11,7 @@ AIEngine::AIEngine() {
     m_cbSendCardData = 0;
     m_MeChairID = INVALID_CHAIR;
     initGame();
-    GameSceneManager::getInstance()->getScene()->addChild(this, -1);
+    cocos2d::Director::getInstance()->getRunningScene()->addChild(this, -1);
     //将节点加入到场景，用于启动定时任务
 }
 

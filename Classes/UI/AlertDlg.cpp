@@ -1,6 +1,5 @@
 
 #include "AlertDlg.h"
-#include "GameSceneManager.h"
 
 using namespace std;
 

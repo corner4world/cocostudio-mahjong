@@ -444,7 +444,7 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
     //显示结算界面
     m_pGameOverNode = CSLoader::createNode("GameOverLayer.csb");
     m_pGameOverNode->setAnchorPoint(Vec2(0.5, 0.5));
-    m_pGameOverNode->setPosition(GameSceneManager::getInstance()->getVisibleSize() / 2);
+    m_pGameOverNode->setPosition(cocos2d::Director::getInstance()->getVisibleSize() / 2);
     m_pLayer->addChild(m_pGameOverNode);
     ui::Button *pOverClose = dynamic_cast<ui::Button *>(UIHelper::seekNodeByName(m_pGameOverNode, "Button_Over_Close"));    //关闭结算界面按钮
     pOverClose->addTouchEventListener(CC_CALLBACK_2(GameLayer::onTouch, this));
@@ -1497,7 +1497,10 @@ void GameLayer::onTouchEnded(ui::Widget *pWidget, const char *pName) {
         auto alert = AlertDlg::create();
         alert->setAlertType(AlertDlg::ENUM_CONFIRM);
         alert->setCallback([]() {
-            GameSceneManager::getInstance()->end();
+            Director::getInstance()->end();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+            exit(0);
+#endif
         }, []() {
             DialogManager::shared()->closeAllDialog();
         });
@@ -1512,7 +1515,10 @@ void GameLayer::onTouchEnded(ui::Widget *pWidget, const char *pName) {
  * 退出游戏
  */
 void GameLayer::exitGame(Node *) {
-    GameSceneManager::getInstance()->end();
+    Director::getInstance()->end();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
 }
 
 /**

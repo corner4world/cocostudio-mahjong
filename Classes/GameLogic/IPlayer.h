@@ -6,7 +6,6 @@
 #define COCOSTUDIO_MAHJONG_IPLAYER_H
 
 #include "GameEngine.h"
-#include "GameSceneManager.h"
 
 class IPlayer {
 
