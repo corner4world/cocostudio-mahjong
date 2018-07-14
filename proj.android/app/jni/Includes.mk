@@ -5,4 +5,5 @@ $(LOCAL_PATH)/../../../Classes/App \
 $(LOCAL_PATH)/../../../Classes/Manager \
 $(LOCAL_PATH)/../../../Classes/Common \
 $(LOCAL_PATH)/../../../Classes/GameLogic \
+$(LOCAL_PATH)/../../../Classes/GameLogic/Player \
 $(LOCAL_PATH)/../../../Classes/Scene \

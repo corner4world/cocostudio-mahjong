@@ -79,12 +79,7 @@ private:
     bool showAndPlayOperateEffect(uint8_t cbViewID,uint8_t cbOperateCode, bool bZm);//播放特效
     bool showTingResult(const uint8_t cbCardIndex[MAX_INDEX], tagWeaveItem WeaveItem[], uint8_t cbWeaveCount);   //显示听牌的结果
     bool showAndUpdateUserScore(int64_t lGameScoreTable[GAME_PLAYER]);             //更新分数
-    ui::ImageView *createHandCardImageView(uint8_t cbViewID, uint8_t cbData);   //创建牌的ImageView
-    ui::ImageView *createDiscardCardImageView(uint8_t cbViewID, uint8_t cbData);//创建出牌的ImageView
-    std::string getDiscardCardImagePath(uint8_t cbViewID, uint8_t cbData);      //获取牌的图片路径
-    std::string getBackCardImagePath(uint8_t cbViewID, uint8_t cbData);         //获取牌背面的路径
-    std::string getHandCardImagePath(uint8_t cbViewID, uint8_t cbData);         //获取手上的牌图片路径
-
+    
 private:
     uint8_t switchViewChairID(uint8_t cbChairID);   //椅子位置切换成视图位置
     uint8_t switchChairViewID(uint8_t cbViewID);    //视图位置切换成椅子位置

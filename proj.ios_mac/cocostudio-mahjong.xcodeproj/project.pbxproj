@@ -50,6 +50,8 @@
 		AC09DC8220F8F86600B1348D /* WelcomeDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC8020F8F86600B1348D /* WelcomeDlg.cpp */; };
 		AC09DC8620F8FE9000B1348D /* AlertDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */; };
 		AC09DC8720F8FE9000B1348D /* AlertDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */; };
+		ACB68C7820F9D65C004875DC /* GameOverDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */; };
+		ACB68C7920F9D65C004875DC /* GameOverDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */; };
 		B39AA075334505A4F64A90F1 /* GameEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA776C6A23B756D83C9B1 /* GameEngine.cpp */; };
 		B39AA0A93053AEEFB46C7223 /* UIHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA2242FF0B5AAB9D8591F /* UIHelper.cpp */; };
 		B39AA1EBA729AEF997090A72 /* GameConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AAD9D487DF6FBE6AD5DBC /* GameConfig.cpp */; };
@@ -168,6 +170,8 @@
 		AC09DC8020F8F86600B1348D /* WelcomeDlg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WelcomeDlg.cpp; sourceTree = "<group>"; };
 		AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlertDlg.cpp; sourceTree = "<group>"; };
 		AC09DC8520F8FE9000B1348D /* AlertDlg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertDlg.h; sourceTree = "<group>"; };
+		ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverDlg.cpp; sourceTree = "<group>"; };
+		ACB68C7720F9D65C004875DC /* GameOverDlg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverDlg.h; sourceTree = "<group>"; };
 		B39AA02DAB8732D6AE8D3ED3 /* RealPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RealPlayer.cpp; sourceTree = "<group>"; };
 		B39AA1C69494DA36E3E07F7F /* raw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = raw; sourceTree = "<group>"; };
 		B39AA2242FF0B5AAB9D8591F /* UIHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIHelper.cpp; sourceTree = "<group>"; };
@@ -386,8 +390,6 @@
 				B39AAD9D487DF6FBE6AD5DBC /* GameConfig.cpp */,
 				B39AAD2AE3ABF612E104889E /* GameConfig.h */,
 				B39AAC6B50BFC88432A4132B /* GameCmd.h */,
-				B39AA2242FF0B5AAB9D8591F /* UIHelper.cpp */,
-				B39AAA9E0C14E935242983E8 /* UIHelper.h */,
 				B39AAA4D3F3D21D80372368E /* Utility.h */,
 				B39AAC9D7ADAAAD710AFECE3 /* FvMask.h */,
 			);
@@ -397,6 +399,10 @@
 		AC09DC6220F8F58300B1348D /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */,
+				ACB68C7720F9D65C004875DC /* GameOverDlg.h */,
+				B39AA2242FF0B5AAB9D8591F /* UIHelper.cpp */,
+				B39AAA9E0C14E935242983E8 /* UIHelper.h */,
 				AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */,
 				AC09DC8520F8FE9000B1348D /* AlertDlg.h */,
 				B39AA79735B0E2C7464E7731 /* BaseUILayer.cpp */,
@@ -437,19 +443,27 @@
 		AC09DC8920F90A6500B1348D /* GameLogic */ = {
 			isa = PBXGroup;
 			children = (
+				ACB68C7420F9D4D6004875DC /* Player */,
 				B39AA628AE91B8EDDD0510C8 /* AIEngine.cpp */,
 				B39AAED5903E2E9FA8E867A5 /* AIEngine.h */,
-				B39AACD2FA171538983572C4 /* AIPlayer.cpp */,
-				B39AA36653874E8DA9E6D60E /* AIPlayer.h */,
 				B39AA776C6A23B756D83C9B1 /* GameEngine.cpp */,
 				B39AA9FE7C84FDB77E0A60B4 /* GameEngine.h */,
 				B39AA9F3D0E074FF8AE548BA /* GameLogic.cpp */,
 				B39AACDB9DAEC436BB720FCB /* GameLogic.h */,
+			);
+			path = GameLogic;
+			sourceTree = "<group>";
+		};
+		ACB68C7420F9D4D6004875DC /* Player */ = {
+			isa = PBXGroup;
+			children = (
 				B39AAF6146C7C1019709EBC4 /* IPlayer.h */,
+				B39AACD2FA171538983572C4 /* AIPlayer.cpp */,
+				B39AA36653874E8DA9E6D60E /* AIPlayer.h */,
 				B39AA02DAB8732D6AE8D3ED3 /* RealPlayer.cpp */,
 				B39AAB8302A5EF2189A00C9D /* RealPlayer.h */,
 			);
-			path = GameLogic;
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -586,6 +600,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACB68C7820F9D65C004875DC /* GameOverDlg.cpp in Sources */,
 				1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */,
 				1AF87B8B1F6F782A007BE51C /* RootViewController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
@@ -614,6 +629,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				ACB68C7920F9D65C004875DC /* GameOverDlg.cpp in Sources */,
 				AC09DC7E20F8F75700B1348D /* LoadingScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				B39AAA76F192393C162BD0FB /* BaseUILayer.cpp in Sources */,

@@ -165,7 +165,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
                 uint8_t row = static_cast<uint8_t>(i / 12);
                 x = (col == 0) ? 0 : x;  //X复位
                 y = row * 90;
-                ui::ImageView *pCard0 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
+                ui::ImageView *pCard0 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
                 pCard0->setAnchorPoint(Vec2(0, 0));
                 pCard0->setPosition(Vec2(x, y));
                 pCard0->setLocalZOrder(10 - row);
@@ -198,7 +198,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
                 uint8_t row = static_cast<uint8_t>(i / 11);
                 y = (col == 0) ? 0 : y;  //X复位
                 x = 116 * row;
-                ui::ImageView *pCard1 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
+                ui::ImageView *pCard1 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
                 pCard1->setAnchorPoint(Vec2(0, 0));
                 pCard1->setPosition(Vec2(x, 740 - y));
                 pCard1->setLocalZOrder(col);
@@ -225,7 +225,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
                 uint8_t row = static_cast<uint8_t>(i / 12);
                 x = (col == 0) ? 0 : x;  //X复位
                 y = 90 - row * 90;
-                ui::ImageView *pCard2 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
+                ui::ImageView *pCard2 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
                 pCard2->setAnchorPoint(Vec2(0, 0));
                 pCard2->setPosition(Vec2(x, y));
                 pCard2->setLocalZOrder(row);
@@ -254,7 +254,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
                 uint8_t row = static_cast<uint8_t>(i / 11);
                 y = (col == 0) ? 0 : y;  //X复位
                 x = 240 - (116 * row);
-                ui::ImageView *pCard3 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
+                ui::ImageView *pCard3 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[OutCard.cbOutCardUser][i]);
                 pCard3->setAnchorPoint(Vec2(0, 0));
                 pCard3->setPosition(Vec2(x, y));
                 pCard3->setLocalZOrder(20 - col);
@@ -479,7 +479,7 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
             //胡牌手上移除胡的那张牌
             GameLogic::removeCard(GameEnd.cbCardData[i], GameEnd.cbCardCount[i], &GameEnd.cbHuCard, 1);
             GameEnd.cbCardCount[i]--;
-            pOverHuCard->loadTexture(getDiscardCardImagePath(0, GameEnd.cbHuCard));
+            pOverHuCard->loadTexture(UIHelper::getDiscardCardImagePath(0, GameEnd.cbHuCard));
             pOverHuCard->setVisible(true);
             pOverHuFlag->setVisible(true);
         }
@@ -495,8 +495,8 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
             }
             pWeaveNode->setScale(0.6f, 0.6f);
             pWeaveNode->setPosition(Vec2(x, 0));
-            const std::string &strImagePath = getDiscardCardImagePath(0, weaveItem.cbCenterCard);
-            const std::string &strBackImagePath = getDiscardCardImagePath(0, weaveItem.cbCenterCard);
+            const std::string &strImagePath = UIHelper::getDiscardCardImagePath(0, weaveItem.cbCenterCard);
+            const std::string &strBackImagePath = UIHelper::getDiscardCardImagePath(0, weaveItem.cbCenterCard);
             ui::ImageView *pImageRight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_right"));
             ui::ImageView *pImageLeft = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_left"));
             ui::ImageView *pImageCenter = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_center"));
@@ -613,7 +613,7 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
             x += 132;
         }
         for (int j = 0; j < MAX_COUNT - 1 - (3 * cbWeaveCount); j++) {
-            ui::ImageView *pCard = createDiscardCardImageView(0, GameEnd.cbCardData[i][j]);
+            ui::ImageView *pCard = UIHelper::createDiscardCardImageView(0, GameEnd.cbCardData[i][j]);
             pCard->setAnchorPoint(Vec2(0, 0));
             pCard->setPosition(Vec2(x, 0));
             pCard->setScale(0.6f, 0.6f);
@@ -655,7 +655,7 @@ bool GameLayer::showSendCard(CMD_S_SendCard SendCard) {
             m_bOperate = true;   //允许选牌
             ui::Layout *pRecvCardList = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_PlayerPanel[cbViewID], utility::toString("RecvHandCard_0")));
             pRecvCardList->removeAllChildren();
-            ui::ImageView *pCard = createHandCardImageView(cbViewID, SendCard.cbCardData);
+            ui::ImageView *pCard = UIHelper::createHandCardImageView(cbViewID, SendCard.cbCardData);
             pCard->setAnchorPoint(Vec2(0, 0));
             pCard->setPosition(Vec2(0, 0));
             pCard->setTouchEnabled(true);
@@ -705,7 +705,7 @@ bool GameLayer::showTingResult(const uint8_t *cbCardIndex, tagWeaveItem *WeaveIt
         Node *pTingCard = UIHelper::seekNodeByName(m_PlayerPanel[m_MeChairID], "ting_card");
         pTingCard->removeAllChildren();
         for (int i = 0; i < tingResult.cbTingCount; i++) {  //循环听的牌
-            ui::ImageView *pTingCardImage = createDiscardCardImageView(0, tingResult.cbTingCard[i]);
+            ui::ImageView *pTingCardImage = UIHelper::createDiscardCardImageView(0, tingResult.cbTingCard[i]);
             pTingCardImage->setAnchorPoint(Vec2(0, 0));
             pTingCardImage->setPosition(Vec2(76 * i + ((76.0f * 3) - (76.0f * tingResult.cbTingCount)) / 2.0f, 0));
             pTingCard->addChild(pTingCardImage);
@@ -755,7 +755,7 @@ bool GameLayer::showOperateNotify(CMD_S_OperateNotify OperateNotify) {
             pGangNode->setPosition(Vec2(x, y + (i * 120)));
             ui::Button *pGangBtn = dynamic_cast<ui::Button *>(pGangNode->getChildren().at(0));
             ui::ImageView *pImgGangCard = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pGangBtn, "ImgGangCard"));
-            pImgGangCard->loadTexture(getDiscardCardImagePath(0, OperateNotify.cbGangCard[i]));
+            pImgGangCard->loadTexture(UIHelper::getDiscardCardImagePath(0, OperateNotify.cbGangCard[i]));
             pImgGangCard->setVisible(OperateNotify.cbGangCount > 1);
             pGangBtn->setTag(OperateNotify.cbGangCard[i]);
             pGangBtn->addTouchEventListener(CC_CALLBACK_2(GameLayer::onOperateTouch, this));
@@ -812,8 +812,8 @@ bool GameLayer::showAndUpdateHandCard() {
                     }
                     assert(pWeaveNode != NULL);
                     pWeaveNode->setPosition(Vec2(x, 0));
-                    const std::string &strImagePath = getDiscardCardImagePath(0, weaveItem.cbCenterCard);
-                    const std::string &strBackImagePath = getBackCardImagePath(0, weaveItem.cbCenterCard);
+                    const std::string &strImagePath = UIHelper::getDiscardCardImagePath(0, weaveItem.cbCenterCard);
+                    const std::string &strBackImagePath = UIHelper::getBackCardImagePath(0, weaveItem.cbCenterCard);
                     ui::ImageView *pImageRight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_right"));
                     ui::ImageView *pImageLeft = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_left"));
                     ui::ImageView *pImageCenter = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_center"));
@@ -848,7 +848,7 @@ bool GameLayer::showAndUpdateHandCard() {
                     x += 228;
                 }
                 for (uint8_t j = 0; j < MAX_COUNT - 1 - (3 * cbWeaveItemCount); j++) {
-                    ui::ImageView *pCard = createHandCardImageView(viewChairID, bCardData[j]);
+                    ui::ImageView *pCard = UIHelper::createHandCardImageView(viewChairID, bCardData[j]);
                     pCard->setAnchorPoint(Vec2(0, 0));
                     pCard->setPosition(Vec2(x, 0));
                     pCard->setTouchEnabled(true);
@@ -878,8 +878,8 @@ bool GameLayer::showAndUpdateHandCard() {
                     }
                     assert(pWeaveNode != NULL);
                     pWeaveNode->setPosition(Vec2(0, y + 20));
-                    const std::string &strImagePath = getDiscardCardImagePath(1, weaveItem.cbCenterCard);
-                    const std::string &strBackImagePath = getBackCardImagePath(1, weaveItem.cbCenterCard);
+                    const std::string &strImagePath = UIHelper::getDiscardCardImagePath(1, weaveItem.cbCenterCard);
+                    const std::string &strBackImagePath = UIHelper::getBackCardImagePath(1, weaveItem.cbCenterCard);
                     ui::ImageView *pImageRight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_right"));
                     ui::ImageView *pImageLeft = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_left"));
                     ui::ImageView *pImageCenter = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_center"));
@@ -914,7 +914,7 @@ bool GameLayer::showAndUpdateHandCard() {
                 }
                 for (uint8_t j = 0; j < MAX_COUNT - 1 - (3 * cbWeaveItemCount); j++) {
                     y -= 60;
-                    ui::ImageView *pCard = createHandCardImageView(viewChairID, bCardData[j]);
+                    ui::ImageView *pCard = UIHelper::createHandCardImageView(viewChairID, bCardData[j]);
                     pCard->setAnchorPoint(Vec2(0, 0));
                     pCard->setPosition(Vec2(0, y - 20));
                     pCard->setLocalZOrder(j);
@@ -940,8 +940,8 @@ bool GameLayer::showAndUpdateHandCard() {
                     }
                     assert(pWeaveNode != NULL);
                     pWeaveNode->setPosition(Vec2(x + 23, 0));
-                    const std::string &strImagePath = getDiscardCardImagePath(2, weaveItem.cbCenterCard);
-                    const std::string &strBackImagePath = getBackCardImagePath(2, weaveItem.cbCenterCard);
+                    const std::string &strImagePath = UIHelper::getDiscardCardImagePath(2, weaveItem.cbCenterCard);
+                    const std::string &strBackImagePath = UIHelper::getBackCardImagePath(2, weaveItem.cbCenterCard);
                     ui::ImageView *pImageRight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_right"));
                     ui::ImageView *pImageLeft = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_left"));
                     ui::ImageView *pImageCenter = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_center"));
@@ -976,7 +976,7 @@ bool GameLayer::showAndUpdateHandCard() {
                 }
                 for (uint8_t j = 0; j < MAX_COUNT - 1 - (3 * cbWeaveItemCount); j++) {
                     x -= 76;
-                    ui::ImageView *pCard = createHandCardImageView(viewChairID, bCardData[j]);
+                    ui::ImageView *pCard = UIHelper::createHandCardImageView(viewChairID, bCardData[j]);
                     pCard->setAnchorPoint(Vec2(0, 0));
                     pCard->setPosition(Vec2(x, 0));
                     pHandCard2->addChild(pCard);
@@ -1000,8 +1000,8 @@ bool GameLayer::showAndUpdateHandCard() {
                     }
                     assert(pWeaveNode != NULL);
                     pWeaveNode->setPosition(Vec2(0, y - 10));
-                    const std::string &strImagePath = getDiscardCardImagePath(3, weaveItem.cbCenterCard);
-                    const std::string &strBackImagePath = getBackCardImagePath(3, weaveItem.cbCenterCard);
+                    const std::string &strImagePath = UIHelper::getDiscardCardImagePath(3, weaveItem.cbCenterCard);
+                    const std::string &strBackImagePath = UIHelper::getBackCardImagePath(3, weaveItem.cbCenterCard);
                     ui::ImageView *pImageRight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_right"));
                     ui::ImageView *pImageLeft = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_left"));
                     ui::ImageView *pImageCenter = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pWeaveNode, "Image_center"));
@@ -1036,7 +1036,7 @@ bool GameLayer::showAndUpdateHandCard() {
                     y += 160;
                 }
                 for (uint8_t j = 0; j < MAX_COUNT - 1 - (3 * cbWeaveItemCount); j++) {
-                    ui::ImageView *pCard = createHandCardImageView(viewChairID, bCardData[j]);
+                    ui::ImageView *pCard = UIHelper::createHandCardImageView(viewChairID, bCardData[j]);
                     pCard->setAnchorPoint(Vec2(0, 0));
                     pCard->setPosition(Vec2(0, y - 20));
                     pCard->setLocalZOrder(MAX_COUNT - j);
@@ -1155,7 +1155,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
                     uint8_t row = static_cast<uint8_t>(i / 12);
                     x = (col == 0) ? 0 : x;  //X复位
                     y = row * 90;
-                    ui::ImageView *pCard0 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
+                    ui::ImageView *pCard0 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
                     pCard0->setAnchorPoint(Vec2(0, 0));
                     pCard0->setPosition(Vec2(x, y));
                     pCard0->setLocalZOrder(10 - row);
@@ -1177,7 +1177,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
                     uint8_t row = static_cast<uint8_t>(i / 11);
                     y = (col == 0) ? 0 : y;  //X复位
                     x = 116 * row;
-                    ui::ImageView *pCard1 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
+                    ui::ImageView *pCard1 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
                     pCard1->setAnchorPoint(Vec2(0, 0));
                     pCard1->setPosition(Vec2(x, 740 - y));
                     pCard1->setLocalZOrder(col);
@@ -1198,7 +1198,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
                     uint8_t row = static_cast<uint8_t>(i / 12);
                     x = (col == 0) ? 0 : x;  //X复位
                     y = 90 - row * 90;
-                    ui::ImageView *pCard2 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
+                    ui::ImageView *pCard2 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
                     pCard2->setAnchorPoint(Vec2(0, 0));
                     pCard2->setPosition(Vec2(x, y));
                     pCard2->setLocalZOrder(row);
@@ -1221,7 +1221,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
                     uint8_t row = static_cast<uint8_t>(i / 11);
                     y = (col == 0) ? 0 : y;  //X复位
                     x = 240 - (116 * row);
-                    ui::ImageView *pCard3 = createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
+                    ui::ImageView *pCard3 = UIHelper::createDiscardCardImageView(cbViewID, m_cbDiscardCard[cbChairID][i]);
                     pCard3->setAnchorPoint(Vec2(0, 0));
                     pCard3->setPosition(Vec2(x, y));
                     pCard3->setLocalZOrder(20 - col);
@@ -1236,125 +1236,6 @@ bool GameLayer::showAndUpdateDiscardCard() {
         }
     }
     return true;
-}
-
-/**
- * 手上的牌
- * @param cbViewID
- * @param cbData
- * @return
- */
-ui::ImageView *GameLayer::createHandCardImageView(uint8_t cbViewID, uint8_t cbData) {
-    return ui::ImageView::create(getHandCardImagePath(cbViewID, cbData));
-}
-
-/**
- * 创建桌面的牌
- * @param cbViewID
- * @param cbData
- * @return
- */
-ui::ImageView *GameLayer::createDiscardCardImageView(uint8_t cbViewID, uint8_t cbData) {
-    return ui::ImageView::create(getDiscardCardImagePath(cbViewID, cbData));
-}
-
-/**
- * 桌面显示的牌
- * @param cbViewID
- * @param cbData
- * @return
- */
-std::string GameLayer::getDiscardCardImagePath(uint8_t cbViewID, uint8_t cbData) {
-    std::string strImagePath = "";
-    switch (cbViewID) {
-        case 0: {
-            strImagePath = "res/GameLayer/Mahjong/2/mingmah_" + utility::toString(((cbData & MASK_COLOR)
-                    >> 4) + 1, cbData & MASK_VALUE) + ".png";
-            break;
-        }
-        case 1: {
-            strImagePath = "res/GameLayer/Mahjong/3/mingmah_" + utility::toString(((cbData & MASK_COLOR)
-                    >> 4) + 1, cbData & MASK_VALUE) + ".png";
-            break;
-        }
-        case 2: {
-            strImagePath = "res/GameLayer/Mahjong/2/mingmah_" + utility::toString(((cbData & MASK_COLOR)
-                    >> 4) + 1, cbData & MASK_VALUE) + ".png";
-            break;
-        }
-        case 3: {
-            strImagePath = "res/GameLayer/Mahjong/1/mingmah_" + utility::toString(((cbData & MASK_COLOR)
-                    >> 4) + 1, cbData & MASK_VALUE) + ".png";
-            break;
-        }
-        default:
-            break;
-    }
-    return strImagePath;
-}
-
-/**
- *
- * 背面
- * @param cbViewID
- * @param cbData
- * @return
- */
-std::string GameLayer::getBackCardImagePath(uint8_t cbViewID, uint8_t) {
-    std::string strImagePath = "";
-    switch (cbViewID) {
-        case 0: {
-            strImagePath = "res/GameLayer/Mahjong/2/mingmah_00.png";
-            break;
-        }
-        case 1: {
-            strImagePath = "res/GameLayer/Mahjong/1/mingmah_00.png";
-            break;
-        }
-        case 2: {
-            strImagePath = "res/GameLayer/Mahjong/2/mingmah_00.png";
-            break;
-        }
-        case 3: {
-            strImagePath = "res/GameLayer/Mahjong/1/mingmah_00.png";
-            break;
-        }
-        default:
-            break;
-    }
-    return strImagePath;
-}
-
-/**
- * 手上的牌路径
- * @param cbViewID
- * @param cbData
- * @return
- */
-std::string GameLayer::getHandCardImagePath(uint8_t cbViewID, uint8_t cbData) {
-    std::string strImagePath = "";
-    switch (cbViewID) {
-        case 0: {
-            strImagePath = "res/GameLayer/Mahjong/2/handmah_" + utility::toString(((cbData & MASK_COLOR)
-                    >> 4) + 1, cbData & MASK_VALUE) + ".png";
-            break;
-        }
-        case 1: {
-            strImagePath = "res/GameLayer/Mahjong/hand_left.png";
-            break;
-        }
-        case 2: {
-            strImagePath = "res/GameLayer/Mahjong/hand_top.png";
-            break;
-        }
-        case 3: {
-            strImagePath = "res/GameLayer/Mahjong/hand_right.png";
-            break;
-        }
-        default:
-            break;
-    }
-    return strImagePath;
 }
 
 void GameLayer::onOperateTouch(Ref *ref, ui::Widget::TouchEventType eventType) {
