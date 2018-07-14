@@ -22,7 +22,6 @@ class GameLayer : public BaseUILayer, IGameEngineEventListener {
 
 private:
     GameEngine *m_GameEngine;           //游戏引擎
-    GameLogic *m_GameLogic;             //游戏逻辑
     Node *m_pGameOverNode;              //结算节点
     Node *m_FaceFrame[GAME_PLAYER];     //头像信息节点
     Node *m_PlayerPanel[GAME_PLAYER];   //玩家牌的区域

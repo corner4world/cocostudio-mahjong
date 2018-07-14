@@ -5,8 +5,8 @@
 #include "GameLogic.h"
 #include <random>
 
-//麻将牌
-const uint8_t GameLogic::m_cbCardDataArray[MAX_REPERTORY] = {
+//麻将牌数据
+static const uint8_t s_MJCardDataArray[MAX_REPERTORY] = {
         0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,                        //筒子
         0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,                        //筒子
         0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,                        //筒子
@@ -32,8 +32,8 @@ const uint8_t GameLogic::m_cbCardDataArray[MAX_REPERTORY] = {
  */
 void GameLogic::shuffle(uint8_t *cbCardData, uint8_t cbMaxCount) {
     std::random_device rd;
-    uint8_t cbCardDataTemp[sizeof(m_cbCardDataArray)];
-    memcpy(cbCardDataTemp, m_cbCardDataArray, sizeof(m_cbCardDataArray));
+    uint8_t cbCardDataTemp[sizeof(s_MJCardDataArray)];
+    memcpy(cbCardDataTemp, s_MJCardDataArray, sizeof(s_MJCardDataArray));
     uint8_t cbRandCount = 0, cbPosition = 0;
     do {
         cbPosition = static_cast<uint8_t>(rd() % (cbMaxCount - cbRandCount));

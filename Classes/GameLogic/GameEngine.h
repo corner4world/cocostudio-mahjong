@@ -83,8 +83,7 @@ public:
 class GameEngine {
 
 private:
-    IPlayer *m_pIPlayer[GAME_PLAYER];        //游戏玩家
-    GameLogic *m_GameLogic;
+    IPlayer * m_pIPlayer[GAME_PLAYER];        //游戏玩家
     int64_t m_lGameScoreTable[GAME_PLAYER];           //记录总分
     uint32_t iDiceCount;                              //骰子点数
     uint8_t m_CurrChair;                              //当前椅子数量

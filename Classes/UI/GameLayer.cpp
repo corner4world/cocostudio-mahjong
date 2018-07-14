@@ -15,7 +15,6 @@ GameLayer::GameLayer() {
     m_CurPlayer = 0;
     m_MeChairID = 0;
     m_GameEngine = GameEngine::GetGameEngine();  //构造游戏引擎
-    m_GameLogic = new GameLogic;
     m_bOperate = false;
     m_bMove = false;
     m_pOperateNotifyGroup = NULL;
@@ -104,7 +103,7 @@ bool GameLayer::onGameStartEvent(CMD_S_GameStart GameStart) {
     //剩余的牌
     m_cbLeftCardCount = GameStart.cbLeftCardCount;
     m_cbBankerChair = GameStart.cbBankerUser;
-    m_GameLogic->switchToCardIndex(GameStart.cbCardData, MAX_COUNT - 1, m_cbCardIndex[m_MeChairID]);
+    GameLogic::switchToCardIndex(GameStart.cbCardData, MAX_COUNT - 1, m_cbCardIndex[m_MeChairID]);
     //界面显示
     m_pTextCardNum->setString(utility::toString((int) m_cbLeftCardCount));
     showAndUpdateHandCard();
@@ -121,7 +120,7 @@ bool GameLayer::onSendCardEvent(CMD_S_SendCard SendCard) {
     m_iOutCardTimeOut = 30; //重置计时器
     m_cbLeftCardCount--;
     if (SendCard.cbCurrentUser == m_MeChairID) {
-        m_cbCardIndex[m_MeChairID][m_GameLogic->switchToCardIndex(SendCard.cbCardData)]++;
+        m_cbCardIndex[m_MeChairID][GameLogic::switchToCardIndex(SendCard.cbCardData)]++;
     }
     return showSendCard(SendCard);
 }
@@ -133,7 +132,7 @@ bool GameLayer::onSendCardEvent(CMD_S_SendCard SendCard) {
  */
 bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
     if (OutCard.cbOutCardUser == m_MeChairID) {
-        m_cbCardIndex[m_MeChairID][m_GameLogic->switchToCardIndex(OutCard.cbOutCardData)]--;
+        m_cbCardIndex[m_MeChairID][GameLogic::switchToCardIndex(OutCard.cbOutCardData)]--;
     }
     m_cbDiscardCard[OutCard.cbOutCardUser][m_cbDiscardCount[OutCard.cbOutCardUser]++] = OutCard.cbOutCardData;
     uint8_t cbViewID = switchViewChairID(OutCard.cbOutCardUser);
@@ -316,7 +315,7 @@ bool GameLayer::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
             m_WeaveItemArray[OperateResult.cbOperateUser][m_cbWeaveItemCount[OperateResult.cbOperateUser]++] = weaveItem;
             if (OperateResult.cbOperateUser == m_MeChairID) {  //自己
                 uint8_t cbReomveCard[] = {OperateResult.cbOperateCard, OperateResult.cbOperateCard};
-                m_GameLogic->removeCard(m_cbCardIndex[OperateResult.cbOperateUser], cbReomveCard, sizeof(cbReomveCard));
+                GameLogic::removeCard(m_cbCardIndex[OperateResult.cbOperateUser], cbReomveCard, sizeof(cbReomveCard));
             }
             break;
         }
@@ -341,7 +340,7 @@ bool GameLayer::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
                 m_WeaveItemArray[OperateResult.cbOperateUser][j] = weaveItem;
             }
             if (OperateResult.cbOperateUser == m_MeChairID) {  //自己
-                m_GameLogic->removeAllCard(m_cbCardIndex[OperateResult.cbOperateUser], OperateResult.cbOperateCard);
+                GameLogic::removeAllCard(m_cbCardIndex[OperateResult.cbOperateUser], OperateResult.cbOperateCard);
             }
             break;
         }
@@ -375,7 +374,7 @@ bool GameLayer::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
             if (cbViewID == 0) {                    //如果是自己，碰完需要出牌
                 uint8_t bTempCardData[MAX_COUNT];   //手上的牌
                 memset(bTempCardData, 0, sizeof(bTempCardData));
-                m_GameLogic->switchToCardData(m_cbCardIndex[OperateResult.cbOperateUser], bTempCardData, MAX_COUNT);
+                GameLogic::switchToCardData(m_cbCardIndex[OperateResult.cbOperateUser], bTempCardData, MAX_COUNT);
                 uint8_t cbWeaveItemCount = m_cbWeaveItemCount[OperateResult.cbOperateUser]; //组合数量
                 CMD_S_SendCard SendCard;
                 memset(&SendCard, 0, sizeof(CMD_S_SendCard));
@@ -478,7 +477,7 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
         uint8_t cbWeaveCount = GameEnd.cbWeaveCount[i];
         if (FvMask::HasAny(GameEnd.cbHuUser, _MASK_(i))) {
             //胡牌手上移除胡的那张牌
-            m_GameLogic->removeCard(GameEnd.cbCardData[i], GameEnd.cbCardCount[i], &GameEnd.cbHuCard, 1);
+            GameLogic::removeCard(GameEnd.cbCardData[i], GameEnd.cbCardCount[i], &GameEnd.cbHuCard, 1);
             GameEnd.cbCardCount[i]--;
             pOverHuCard->loadTexture(getDiscardCardImagePath(0, GameEnd.cbHuCard));
             pOverHuCard->setVisible(true);
@@ -701,7 +700,7 @@ bool GameLayer::showTingResult(const uint8_t *cbCardIndex, tagWeaveItem *WeaveIt
     tagTingResult tingResult;
     memset(&tingResult, 0, sizeof(tagTingResult));
     Node *pTingNode = UIHelper::seekNodeByName(m_PlayerPanel[m_MeChairID], "ting_0");
-    if (m_GameLogic->analyseTingCardResult(cbCardIndex, WeaveItem, cbWeaveCount, tingResult)) {  //听牌
+    if (GameLogic::analyseTingCardResult(cbCardIndex, WeaveItem, cbWeaveCount, tingResult)) {  //听牌
         pTingNode->setVisible(true);
         Node *pTingCard = UIHelper::seekNodeByName(m_PlayerPanel[m_MeChairID], "ting_card");
         pTingCard->removeAllChildren();
@@ -791,7 +790,7 @@ bool GameLayer::showAndUpdateHandCard() {
         uint8_t viewChairID = switchViewChairID(i);
         uint8_t bCardData[MAX_COUNT];  //手上的牌
         memset(bCardData, 0, sizeof(bCardData));
-        m_GameLogic->switchToCardData(m_cbCardIndex[i], bCardData, MAX_COUNT);
+        GameLogic::switchToCardData(m_cbCardIndex[i], bCardData, MAX_COUNT);
         uint8_t cbWeaveItemCount = m_cbWeaveItemCount[i]; //组合数量
         tagWeaveItem WeaveItemArray[MAX_WEAVE];         //组合
         memcpy(WeaveItemArray, m_WeaveItemArray[i], sizeof(WeaveItemArray));
@@ -1434,7 +1433,7 @@ void GameLayer::onCardTouch(Ref *ref, ui::Widget::TouchEventType eventType) {
                     memset(&cbTingCard, 0, sizeof(cbTingCard));
                     uint8_t *cbCardIndex = m_cbCardIndex[m_MeChairID];
                     memcpy(&cbTingCard, cbCardIndex, sizeof(cbTingCard));   //内存拷贝
-                    cbTingCard[m_GameLogic->switchToCardIndex(cbCardData)]--;   //移除要出的牌进行分析
+                    cbTingCard[GameLogic::switchToCardIndex(cbCardData)]--;   //移除要出的牌进行分析
                     showTingResult(cbTingCard, pTagWeaveItem, cbWeaveItemCount);
                     break;
                 }

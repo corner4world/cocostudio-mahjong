@@ -7,7 +7,6 @@
 
 AIEngine::AIEngine() {
     m_GameEngine = GameEngine::GetGameEngine();
-    m_GameLogic = new GameLogic();
     m_cbSendCardData = 0;
     m_MeChairID = INVALID_CHAIR;
     initGame();
@@ -49,7 +48,7 @@ bool AIEngine::onGameStartEvent(CMD_S_GameStart GameStart) {
     initGame();
     m_cbLeftCardCount = GameStart.cbLeftCardCount;
     m_cbBankerChair = GameStart.cbBankerUser;
-    m_GameLogic->switchToCardIndex(GameStart.cbCardData, MAX_COUNT - 1, m_cbCardIndex[m_MeChairID]);
+    GameLogic::switchToCardIndex(GameStart.cbCardData, MAX_COUNT - 1, m_cbCardIndex[m_MeChairID]);
     return true;
 }
 
@@ -58,7 +57,7 @@ bool AIEngine::onSendCardEvent(CMD_S_SendCard SendCard) {
         m_cbLeftCardCount--;
         if (SendCard.cbCurrentUser == m_MeChairID) {
             cocos2d::log("机器人接收到发牌事件");
-            m_cbCardIndex[m_MeChairID][m_GameLogic->switchToCardIndex(SendCard.cbCardData)]++;
+            m_cbCardIndex[m_MeChairID][GameLogic::switchToCardIndex(SendCard.cbCardData)]++;
         }
         m_cbSendCardData = SendCard.cbCardData;
         scheduleOnce(CC_SCHEDULE_SELECTOR(AIEngine::sendCard), time(NULL) % 2 + 0.8f);
@@ -74,7 +73,7 @@ bool AIEngine::onSendCardEvent(CMD_S_SendCard SendCard) {
 bool AIEngine::onOutCardEvent(CMD_S_OutCard OutCard) {
     if (OutCard.cbOutCardUser == m_MeChairID) {
         cocos2d::log("机器人接收到出牌事件");
-        m_cbCardIndex[m_MeChairID][m_GameLogic->switchToCardIndex(OutCard.cbOutCardData)]--;
+        m_cbCardIndex[m_MeChairID][GameLogic::switchToCardIndex(OutCard.cbOutCardData)]--;
     }
     m_cbDiscardCard[OutCard.cbOutCardUser][m_cbDiscardCount[OutCard.cbOutCardUser]++] = OutCard.cbOutCardData;
     return true;
@@ -128,9 +127,9 @@ bool AIEngine::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
             m_WeaveItemArray[OperateResult.cbOperateUser][m_cbWeaveItemCount[OperateResult.cbOperateUser]++] = weaveItem;
             if (OperateResult.cbOperateUser == m_MeChairID) { //自己出牌操作
                 uint8_t cbReomveCard[] = {OperateResult.cbOperateCard, OperateResult.cbOperateCard};
-                m_GameLogic->removeCard(m_cbCardIndex[OperateResult.cbOperateUser], cbReomveCard, sizeof(cbReomveCard));
+                GameLogic::removeCard(m_cbCardIndex[OperateResult.cbOperateUser], cbReomveCard, sizeof(cbReomveCard));
                 uint8_t cbTempCardData[MAX_COUNT] = {0};
-                m_GameLogic->switchToCardData(m_cbCardIndex[m_MeChairID], cbTempCardData, static_cast<uint8_t>(MAX_COUNT - 1 - (m_cbWeaveItemCount[m_MeChairID] * 3))); //碰完需要出一张
+                GameLogic::switchToCardData(m_cbCardIndex[m_MeChairID], cbTempCardData, static_cast<uint8_t>(MAX_COUNT - 1 - (m_cbWeaveItemCount[m_MeChairID] * 3))); //碰完需要出一张
                 m_cbSendCardData = cbTempCardData[0];
                 scheduleOnce(CC_SCHEDULE_SELECTOR(AIEngine::sendCard), time(NULL) % 2 + 0.5f);
             }
@@ -157,7 +156,7 @@ bool AIEngine::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
                 m_WeaveItemArray[OperateResult.cbOperateUser][j] = weaveItem;
             }
             if (OperateResult.cbOperateUser == m_MeChairID) {  //自己
-                m_GameLogic->removeAllCard(m_cbCardIndex[OperateResult.cbOperateUser], OperateResult.cbOperateCard);
+                GameLogic::removeAllCard(m_cbCardIndex[OperateResult.cbOperateUser], OperateResult.cbOperateCard);
             }
             break;
         }

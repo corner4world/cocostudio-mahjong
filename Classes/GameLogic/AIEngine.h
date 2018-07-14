@@ -8,11 +8,10 @@
 #include "GameEngine.h"
 #include "cocos2d.h"
 
-class AIEngine : public IGameEngineEventListener, cocos2d::Node {
+class AIEngine : public cocos2d::Node, public IGameEngineEventListener {
 
 private:
     GameEngine *m_GameEngine;       //游戏引擎
-    GameLogic *m_GameLogic;         //游戏逻辑
     IPlayer *m_MePlayer;            //AI玩家
     uint8_t m_cbSendCardData;       //发送的牌
 
