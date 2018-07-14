@@ -30,6 +30,7 @@ void GameOverDlg::onUILoaded() {
     //
     m_btnClose->addClickEventListener([this](Ref* sender){
         DialogManager::shared()->closeAllDialog();
+        m_gameUI->removeEffectNode("EffectNode");//胡牌不自动删除动画,重新开局的时候需要删除动画
         GameEngine::GetGameEngine()->onGameStart();
 //        GameEngine::GetGameEngine()->init();
 //        Director::getInstance()->replaceScene(LoadingScene::create());

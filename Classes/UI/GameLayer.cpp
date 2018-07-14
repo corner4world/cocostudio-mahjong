@@ -961,11 +961,11 @@ bool GameLayer::showAndPlayOperateEffect(uint8_t cbViewID, uint8_t cbOperateCode
  */
 void GameLayer::removeEffectNode(std::string strNodeName) {
     std::vector<Node *> aChildren;
-    aChildren.clear();
     UIHelper::getChildren(m_rootNode, strNodeName, aChildren);
     for (auto &subChild : aChildren) {
         subChild->removeFromParent();
     }
+    aChildren.clear();
 }
 
 /**
