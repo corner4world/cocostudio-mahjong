@@ -10,6 +10,7 @@
 class RealPlayer : public IPlayer {
 public:
     RealPlayer(PlayerSex sex ,IGameEngineEventListener* pGameEngineEventListener);
+    virtual ~RealPlayer();
 };
 
 #endif //COCOSTUDIO_MAHJONG_REALPLAYER_H

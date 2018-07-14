@@ -20,6 +20,8 @@ enum EstimateKind {
 class IGameEngineEventListener {
 
 public:
+    IGameEngineEventListener() {}
+    virtual ~IGameEngineEventListener() {}
 
     /**
      * 设置玩家

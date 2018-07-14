@@ -57,7 +57,6 @@
 		B39AA075334505A4F64A90F1 /* GameEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA776C6A23B756D83C9B1 /* GameEngine.cpp */; };
 		B39AA1EBA729AEF997090A72 /* GameConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AAD9D487DF6FBE6AD5DBC /* GameConfig.cpp */; };
 		B39AA334E53AB39F60846B37 /* AIEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA628AE91B8EDDD0510C8 /* AIEngine.cpp */; };
-		B39AA358EE6530903CA1F93B /* BaseUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA79735B0E2C7464E7731 /* BaseUILayer.cpp */; };
 		B39AA370092E3E95F66C9FC7 /* raw in Resources */ = {isa = PBXBuildFile; fileRef = B39AA1C69494DA36E3E07F7F /* raw */; };
 		B39AA40DC6B67CF94ED7C175 /* AIPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AACD2FA171538983572C4 /* AIPlayer.cpp */; };
 		B39AA4492CBDBCF2F1A16055 /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AAAFFAC04445B77DAF467 /* GameLayer.cpp */; };
@@ -66,7 +65,6 @@
 		B39AA57AB9533533E2DD0074 /* RealPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA02DAB8732D6AE8D3ED3 /* RealPlayer.cpp */; };
 		B39AA641EC0D1FC96F1B6784 /* GameLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA9F3D0E074FF8AE548BA /* GameLogic.cpp */; };
 		B39AAA4AADFAE20037337BEE /* AIEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA628AE91B8EDDD0510C8 /* AIEngine.cpp */; };
-		B39AAA76F192393C162BD0FB /* BaseUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AA79735B0E2C7464E7731 /* BaseUILayer.cpp */; };
 		B39AAB784A62D98E5678B139 /* GameConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AAD9D487DF6FBE6AD5DBC /* GameConfig.cpp */; };
 		B39AAC2702EAA4C57C5BA6C6 /* SettingDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39AAF45D82B02D594B7436F /* SettingDlg.cpp */; };
 		B39AAC52CF1F4CB47AC8AEBC /* raw in Resources */ = {isa = PBXBuildFile; fileRef = B39AA1C69494DA36E3E07F7F /* raw */; };
@@ -177,11 +175,9 @@
 		B39AA02DAB8732D6AE8D3ED3 /* RealPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RealPlayer.cpp; sourceTree = "<group>"; };
 		B39AA1C69494DA36E3E07F7F /* raw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = raw; sourceTree = "<group>"; };
 		B39AA36653874E8DA9E6D60E /* AIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPlayer.h; sourceTree = "<group>"; };
-		B39AA45157A7E648BDD42253 /* BaseUILayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseUILayer.h; sourceTree = "<group>"; };
 		B39AA4AF1589340D235E6026 /* SettingDlg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingDlg.h; sourceTree = "<group>"; };
 		B39AA628AE91B8EDDD0510C8 /* AIEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIEngine.cpp; sourceTree = "<group>"; };
 		B39AA776C6A23B756D83C9B1 /* GameEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameEngine.cpp; sourceTree = "<group>"; };
-		B39AA79735B0E2C7464E7731 /* BaseUILayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseUILayer.cpp; sourceTree = "<group>"; };
 		B39AA7E5DEBD610BA3982B56 /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
 		B39AA9F3D0E074FF8AE548BA /* GameLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLogic.cpp; sourceTree = "<group>"; };
 		B39AA9FE7C84FDB77E0A60B4 /* GameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEngine.h; sourceTree = "<group>"; };
@@ -403,8 +399,6 @@
 			children = (
 				AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */,
 				AC09DC8520F8FE9000B1348D /* AlertDlg.h */,
-				B39AA79735B0E2C7464E7731 /* BaseUILayer.cpp */,
-				B39AA45157A7E648BDD42253 /* BaseUILayer.h */,
 				B39AAAFFAC04445B77DAF467 /* GameLayer.cpp */,
 				B39AA7E5DEBD610BA3982B56 /* GameLayer.h */,
 				ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */,
@@ -605,7 +599,6 @@
 				1AF87B8B1F6F782A007BE51C /* RootViewController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				1AF87B8A1F6F7822007BE51C /* main.m in Sources */,
-				B39AA358EE6530903CA1F93B /* BaseUILayer.cpp in Sources */,
 				AC09DC6920F8F5D700B1348D /* DialogManager.cpp in Sources */,
 				AC09DC8120F8F86600B1348D /* WelcomeDlg.cpp in Sources */,
 				B39AA5761657FDA248D970D3 /* GameLayer.cpp in Sources */,
@@ -632,7 +625,6 @@
 				ACB68C7920F9D65C004875DC /* GameOverDlg.cpp in Sources */,
 				AC09DC7E20F8F75700B1348D /* LoadingScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				B39AAA76F192393C162BD0FB /* BaseUILayer.cpp in Sources */,
 				AC09DC8220F8F86600B1348D /* WelcomeDlg.cpp in Sources */,
 				B39AA4492CBDBCF2F1A16055 /* GameLayer.cpp in Sources */,
 				B39AA40DC6B67CF94ED7C175 /* AIPlayer.cpp in Sources */,

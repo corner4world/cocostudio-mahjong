@@ -11,7 +11,7 @@ class AIPlayer : public IPlayer{
 
 public:
     AIPlayer(PlayerSex sex ,IGameEngineEventListener* pGameEngineEventListener);
-
+    virtual ~AIPlayer();
 };
 
 

@@ -24,7 +24,7 @@ bool PlayScene::init()
 void PlayScene::onEnter()
 {
     BaseScene::onEnter();
-    this->addChild(GameLayer::create()->GetLayer());
+    this->addChild(GameLayer::create());
 }
 
 void PlayScene::onExit()

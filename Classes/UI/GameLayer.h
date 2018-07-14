@@ -5,11 +5,8 @@
 #ifndef COCOSTUDIO_MAHJONG_GAMELAYER_H
 #define COCOSTUDIO_MAHJONG_GAMELAYER_H
 
-#include "cocos2d.h"
-#include "cocostudio/CocoStudio.h"
-#include "ui/CocosGUI.h"
+#include "IDialog.h"
 #include "UIHelper.h"
-#include "BaseUILayer.h"
 #include "IPlayer.h"
 #include "GameCmd.h"
 #include "Utility.h"
@@ -17,9 +14,7 @@
 #include "GameLogic.h"
 #include "GameOverDlg.h"
 
-using namespace cocos2d;
-
-class GameLayer : public BaseUILayer, IGameEngineEventListener {
+class GameLayer : public IDialog<Layer>, IGameEngineEventListener {
     friend class GameOverDlg;
 private:
     GameEngine *m_GameEngine;           //游戏引擎
@@ -50,12 +45,13 @@ public:
     CREATE_FUNC(GameLayer)
 
     GameLayer();    // 构造函数
-    ~GameLayer();   //析构
+    virtual ~GameLayer();   //析构
 protected:
-    virtual void onTouchEnded(ui::Widget *pWidget, const char *pName);  //按钮事件处理
-    virtual void initLayer();           //初始化层
+    Button* m_btnExit;
+    Button* m_btnSetting;
+    virtual const char* csbName() const {return "res/GameLayer.csb";}
+    virtual void onUILoaded();
 public:
-    virtual Node *GetLayer();           //获取层Layer
     void initGame();                    //初始化游戏变量
     void aiEnterGame(float f);          //机器人进入游戏
     void sendCardTimerUpdate(float f);  //倒计时
@@ -85,7 +81,6 @@ private:
     uint8_t switchChairViewID(uint8_t cbViewID);    //视图位置切换成椅子位置
     void playSound(std::string file);               //播放声音
     void removeEffectNode(std::string strNodeName); //移除特效
-    void exitGame(Node* pNode);                     //退出游戏
 };
 
 

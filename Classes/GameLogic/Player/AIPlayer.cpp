@@ -14,3 +14,7 @@ AIPlayer::AIPlayer(PlayerSex sex, IGameEngineEventListener *pGameEngineEventList
         : IPlayer(true, sex, pGameEngineEventListener) {
     pGameEngineEventListener->setIPlayer(this);
 }
+
+AIPlayer::~AIPlayer() {
+    CC_SAFE_DELETE(m_pGameEngineEventListener);
+}

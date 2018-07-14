@@ -12,7 +12,9 @@
 #include "AlertDlg.h"
 #include "DialogManager.h"
 
-GameLayer::GameLayer() {
+GameLayer::GameLayer()  : IDialog() {
+    RegDialogCtrl("Button_Exit", m_btnExit);
+    RegDialogCtrl("Button_Set", m_btnSetting);
     m_CurPlayer = 0;
     m_MeChairID = 0;
     m_GameEngine = GameEngine::GetGameEngine();  //构造游戏引擎
@@ -23,14 +25,41 @@ GameLayer::GameLayer() {
     m_pOutCard = NULL;
     m_iOutCardTimeOut = 30;
     initGame();
-    initLayer();
-    schedule(CC_SCHEDULE_SELECTOR(GameLayer::aiEnterGame), 1.0f);    //创建个定时任务，用来添加机器人
 }
 
 GameLayer::~GameLayer() {
-
 }
 
+void GameLayer::onUILoaded() {
+    m_btnExit->addClickEventListener([this](Ref* sender) {
+        //退出游戏按钮
+        auto alert = AlertDlg::create();
+        alert->setAlertType(AlertDlg::ENUM_CONFIRM);
+        alert->setCallback([]() {
+            Director::getInstance()->end();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+            exit(0);
+#endif
+        }, []() {
+            DialogManager::shared()->closeAllDialog();
+        });
+        alert->setText("退出游戏后，本局游戏将直接结束无法恢复，确定是否退出？");
+        DialogManager::shared()->showDialog(alert);
+    });
+    m_btnSetting->addClickEventListener([this](Ref* sender) {
+        //游戏设置按钮
+        DialogManager::shared()->showDialog(SettingDlg::create());
+    });
+    for (unsigned char i = 0; i < GAME_PLAYER; i++) {       //初始化头像节点数组
+        m_FaceFrame[i] = UIHelper::seekNodeByName(m_rootNode, utility::toString("face_frame_", (int) i));
+        m_PlayerPanel[i] = UIHelper::seekNodeByName(m_rootNode, utility::toString("PlayerPanel_", (int) i));
+    }
+    m_pOperateNotifyGroup = UIHelper::seekNodeByName(m_rootNode, "OperateNotifyGroup");   //操作节点
+    m_pTextCardNum = dynamic_cast<ui::Text *>(UIHelper::seekNodeByName(m_rootNode, "Text_LeftCard"));   //操作节点 
+    RealPlayer *pIPlayer = new RealPlayer(IPlayer::MALE, this);
+    m_GameEngine->onUserEnter(pIPlayer);    //玩家加入游戏
+    schedule(CC_SCHEDULE_SELECTOR(GameLayer::aiEnterGame), 1.0f);    //创建个定时任务，用来添加机器人
+}
 /**
  * 初始化游戏变量
  */
@@ -56,26 +85,6 @@ void GameLayer::aiEnterGame(float) {
         unschedule(CC_SCHEDULE_SELECTOR(GameLayer::aiEnterGame));//人满，关闭定时任务
     };
 }
-
-void GameLayer::initLayer() {
-    cocos2d::log("GameLayer initLayer");
-    m_pLayer = CSLoader::createNode("res/GameLayer.csb");   //加载Cocostudio创建的Layer
-    m_pLayer->addChild(this, -1);
-    for (unsigned char i = 0; i < GAME_PLAYER; i++) {       //初始化头像节点数组
-        m_FaceFrame[i] = UIHelper::seekNodeByName(m_pLayer, utility::toString("face_frame_", (int) i));
-        m_PlayerPanel[i] = UIHelper::seekNodeByName(m_pLayer, utility::toString("PlayerPanel_", (int) i));
-    }
-    m_pOperateNotifyGroup = UIHelper::seekNodeByName(m_pLayer, "OperateNotifyGroup");   //操作节点
-    m_pTextCardNum = dynamic_cast<ui::Text *>(UIHelper::seekNodeByName(m_pLayer, "Text_LeftCard"));   //操作节点
-    setTouchEventListener(m_pLayer);
-    RealPlayer *pIPlayer = new RealPlayer(IPlayer::MALE, this);
-    m_GameEngine->onUserEnter(pIPlayer);    //玩家加入游戏
-}
-
-Node *GameLayer::GetLayer() {
-    return m_pLayer;
-}
-
 
 bool GameLayer::onUserEnterEvent(IPlayer *pIPlayer) {
     m_Players[m_CurPlayer++] = pIPlayer;
@@ -142,7 +151,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
     pSignNode->setName("SignAnim");
     std::vector<Node *> aChildren;
     aChildren.clear();
-    UIHelper::getChildren(m_pLayer, "SignAnim", aChildren);
+    UIHelper::getChildren(m_rootNode, "SignAnim", aChildren);
     for (auto &subWidget : aChildren) {
         subWidget->removeFromParent();
     }
@@ -155,7 +164,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
             showAndUpdateHandCard();                     //更新手上的牌
             ui::Layout *pRecvCardList = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_PlayerPanel[cbViewID], utility::toString("RecvHandCard_0")));
             pRecvCardList->removeAllChildren(); //移除出牌位置的牌
-            ui::Layout *pDiscardCard0 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_0"));//显示出的牌
+            ui::Layout *pDiscardCard0 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_0"));//显示出的牌
             pDiscardCard0->removeAllChildren();
             uint8_t bDiscardCount = m_cbDiscardCount[OutCard.cbOutCardUser]; //12
             float x = 0;
@@ -188,7 +197,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
         }
         case 1: {
             //显示出的牌
-            ui::Layout *pDiscardCard1 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_1"));
+            ui::Layout *pDiscardCard1 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_1"));
             pDiscardCard1->removeAllChildren();
             uint8_t bDiscardCount = m_cbDiscardCount[OutCard.cbOutCardUser]; //
             float x = 0;
@@ -215,7 +224,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
             break;
         }
         case 2: {
-            ui::Layout *pDiscardCard2 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_2"));
+            ui::Layout *pDiscardCard2 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_2"));
             pDiscardCard2->removeAllChildren();
             uint8_t bDiscardCount = m_cbDiscardCount[OutCard.cbOutCardUser]; //12
             float x = 0;
@@ -244,7 +253,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
         }
         case 3: {
             //显示出的牌
-            ui::Layout *pDiscardCard3 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_3"));
+            ui::Layout *pDiscardCard3 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_3"));
             pDiscardCard3->removeAllChildren();
             uint8_t bDiscardCount = m_cbDiscardCount[OutCard.cbOutCardUser]; //
             float x = 0;
@@ -274,7 +283,7 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
             break;
     }
     for (int j = 0; j < GAME_PLAYER; ++j) {   //发牌后隐藏导航
-        ui::ImageView *pHighlight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_pLayer, utility::toString("Image_Wheel_", j)));
+        ui::ImageView *pHighlight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_rootNode, utility::toString("Image_Wheel_", j)));
         pHighlight->setVisible(false);
     }
     playSound(utility::toString("raw/Mahjong/", (IPlayer::FEMALE == m_Players[OutCard.cbOutCardUser]->getSex() ? "female" : "male"), "/mjt", utility::toString((
@@ -357,7 +366,7 @@ bool GameLayer::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
         case 0: {   //自己操作反馈
             m_pOperateNotifyGroup->removeAllChildren();
             m_pOperateNotifyGroup->setVisible(false);
-            ui::ImageView *pHighlight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_pLayer, "Image_Wheel_0"));
+            ui::ImageView *pHighlight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_rootNode, "Image_Wheel_0"));
             pHighlight->setVisible(true);
             break;
         }
@@ -450,8 +459,8 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
 
 void GameLayer::sendCardTimerUpdate(float) {
     m_iOutCardTimeOut = static_cast<uint8_t>((m_iOutCardTimeOut-- < 1) ? 0 : m_iOutCardTimeOut);
-    ui::ImageView *pTimer1 = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_pLayer, "Image_Timer_1"));
-    ui::ImageView *pTimer0 = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_pLayer, "Image_Timer_0"));
+    ui::ImageView *pTimer1 = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_rootNode, "Image_Timer_1"));
+    ui::ImageView *pTimer0 = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_rootNode, "Image_Timer_0"));
     int t = m_iOutCardTimeOut / 10;   //十位
     int g = m_iOutCardTimeOut % 10;   //各位
     pTimer1->loadTexture(utility::toString("res/GameLayer/timer_", g, ".png"));
@@ -510,7 +519,7 @@ bool GameLayer::showSendCard(CMD_S_SendCard SendCard) {
         if (pRecvCard) {
             pRecvCard->setVisible(cbViewID == i);
         }
-        ui::ImageView *pHighlight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_pLayer, utility::toString("Image_Wheel_", i)));
+        ui::ImageView *pHighlight = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_rootNode, utility::toString("Image_Wheel_", i)));
         if (pHighlight) {
             pHighlight->setVisible(cbViewID == i);
         }
@@ -937,7 +946,7 @@ bool GameLayer::showAndPlayOperateEffect(uint8_t cbViewID, uint8_t cbOperateCode
         cocostudio::timeline::ActionTimeline *action = CSLoader::createTimeline(strEffect);
         action->gotoFrameAndPlay(0, false);
         pEffectNode->setName(strNodeName);
-        m_pLayer->addChild(pEffectNode);
+        m_rootNode->addChild(pEffectNode);
         if (cbOperateCode != WIK_H) {    //胡牌不自动删除动画
             action->setLastFrameCallFunc(CC_CALLBACK_0(GameLayer::removeEffectNode, this, strNodeName));
         }
@@ -953,7 +962,7 @@ bool GameLayer::showAndPlayOperateEffect(uint8_t cbViewID, uint8_t cbOperateCode
 void GameLayer::removeEffectNode(std::string strNodeName) {
     std::vector<Node *> aChildren;
     aChildren.clear();
-    UIHelper::getChildren(m_pLayer, strNodeName, aChildren);
+    UIHelper::getChildren(m_rootNode, strNodeName, aChildren);
     for (auto &subChild : aChildren) {
         subChild->removeFromParent();
     }
@@ -968,7 +977,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
         uint8_t cbViewID = switchViewChairID(cbChairID);
         switch (cbViewID) {
             case 0: {
-                ui::Layout *pDiscardCard0 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_0"));
+                ui::Layout *pDiscardCard0 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_0"));
                 pDiscardCard0->removeAllChildren();
                 uint8_t bDiscardCount = m_cbDiscardCount[cbChairID];
                 float x = 0;
@@ -990,7 +999,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
             }
             case 1: {
                 //显示出的牌
-                ui::Layout *pDiscardCard1 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_1"));
+                ui::Layout *pDiscardCard1 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_1"));
                 pDiscardCard1->removeAllChildren();
                 uint8_t bDiscardCount = m_cbDiscardCount[cbChairID];
                 float x = 0;
@@ -1011,7 +1020,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
                 break;
             }
             case 2: {
-                ui::Layout *pDiscardCard2 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_2"));
+                ui::Layout *pDiscardCard2 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_2"));
                 pDiscardCard2->removeAllChildren();
                 uint8_t bDiscardCount = m_cbDiscardCount[cbChairID];
                 float x = 0;
@@ -1034,7 +1043,7 @@ bool GameLayer::showAndUpdateDiscardCard() {
             }
             case 3: {
                 //显示出的牌
-                ui::Layout *pDiscardCard3 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_pLayer, "DiscardCard_3"));
+                ui::Layout *pDiscardCard3 = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(m_rootNode, "DiscardCard_3"));
                 pDiscardCard3->removeAllChildren();
                 uint8_t bDiscardCount = m_cbDiscardCount[cbChairID];
                 float x = 0;
@@ -1188,38 +1197,6 @@ void GameLayer::onCardTouch(Ref *ref, ui::Widget::TouchEventType eventType) {
             }
         }
     }
-}
-
-
-void GameLayer::onTouchEnded(ui::Widget *pWidget, const char *pName) {
-    if (strcmp(pName, "Button_Exit") == 0) {     //退出游戏按钮
-        auto alert = AlertDlg::create();
-        alert->setAlertType(AlertDlg::ENUM_CONFIRM);
-        alert->setCallback([]() {
-            Director::getInstance()->end();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-            exit(0);
-#endif
-        }, []() {
-            DialogManager::shared()->closeAllDialog();
-        });
-        alert->setText("退出游戏后，本局游戏将直接结束无法恢复，确定是否退出？");
-        DialogManager::shared()->showDialog(alert);
-    } else if (strcmp(pName, "Button_Set") == 0) {
-        //游戏设置按钮
-        //显示设置层
-        DialogManager::shared()->showDialog(SettingDlg::create());
-    }
-}
-
-/**
- * 退出游戏
- */
-void GameLayer::exitGame(Node *) {
-    Director::getInstance()->end();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
 }
 
 /**

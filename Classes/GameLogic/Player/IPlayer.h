@@ -27,7 +27,7 @@ public:
         m_Sex = sex;
         m_pGameEngineEventListener = pGameEngineEventListener;
     };  //构造函数
-    ~IPlayer() {
+    virtual ~IPlayer() {
 
     }; //析构函数
     /**
