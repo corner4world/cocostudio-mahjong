@@ -1,10 +1,9 @@
 //
 // Created by farmer on 2018/7/5.
 //
-
+#include "Common.h"
 #include "GameEngine.h"
 #include "IPlayer.h"
-
 
 static GameEngine *pGameEngine = NULL;
 
@@ -65,7 +64,7 @@ void GameEngine::init() {
  */
 bool GameEngine::onUserEnter(IPlayer *pIPlayer) {
     if (m_CurrChair >= GAME_PLAYER) {
-        cocos2d::log("玩家已满，无法加入！");
+        log("玩家已满，无法加入！");
         return false;
     }
     pIPlayer->setChairID(m_CurrChair++);

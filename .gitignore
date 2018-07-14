@@ -5,6 +5,7 @@ project.xcworkspace
 Debug.Win32
 *.xcuserdatad
 *.udf
+*.iml
 
 
 
