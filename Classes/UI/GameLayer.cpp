@@ -451,6 +451,8 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
     this->removeEffectNode("EffectNode");
     this->m_pOperateNotifyGroup->removeAllChildren();
     this->m_pOperateNotifyGroup->setVisible(false);
+    const auto &aChildren = this->m_pOperateNotifyGroup->getChildren();
+    log("m_pOperateNotifyGroup.getChildren=%d", (int)aChildren.size());
     //显示结算界面
     auto ui = GameOverDlg::create();
     ui->setGameUI(this, GameEnd);

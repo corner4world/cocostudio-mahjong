@@ -139,8 +139,15 @@ bool GameEngine::onGameStart() {
  * @param outCard
  */
 bool GameEngine::onUserOutCard(CMD_C_OutCard OutCard) {
-    if (m_cbUserAction[m_cbCurrentUser] != WIK_NULL) return true;            //存在操作不允许出牌，需要等操作结束
+    if (m_cbUserAction[m_cbCurrentUser] != WIK_NULL) {
+        log("存在操作不允许出牌，需要等操作结束");
+        for (int i = 0; i < GAME_PLAYER; i++) {
+            log("坐席 %d 的状态是 %d", i, (int)m_cbUserAction[i]);
+        }
+        return true;
+    }
     if (!GameLogic::removeCard(m_cbCardIndex[m_cbCurrentUser], OutCard.cbCardData)) { //删除扑克
+        log("removeCard fail");
         return true;
     }
     //用户切换
@@ -171,6 +178,8 @@ bool GameEngine::onUserOutCard(CMD_C_OutCard OutCard) {
     if (!bAroseAction) {
         m_cbCurrentUser = static_cast<uint8_t>((m_cbCurrentUser + m_CurrChair - 1) % m_CurrChair);          //切换当前玩家发牌
         dispatchCardData(m_cbCurrentUser);    //派发扑克
+    } else {
+        log("???");
     }
     return true;
 }

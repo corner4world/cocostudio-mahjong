@@ -71,6 +71,7 @@ bool AIEngine::onSendCardEvent(CMD_S_SendCard SendCard) {
  * @return
  */
 bool AIEngine::onOutCardEvent(CMD_S_OutCard OutCard) {
+    cocos2d::log("出牌人 %d，坐席 %d", OutCard.cbOutCardUser, m_MeChairID);
     if (OutCard.cbOutCardUser == m_MeChairID) {
         cocos2d::log("机器人接收到出牌事件");
         m_cbCardIndex[m_MeChairID][GameLogic::switchToCardIndex(OutCard.cbOutCardData)]--;
