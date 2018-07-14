@@ -595,7 +595,7 @@ bool GameEngine::onEventGameConclude(uint8_t cbChairID) {
     CMD_S_GameEnd GameEnd;
     memset(&GameEnd, 0, sizeof(CMD_S_GameEnd));    //清空内存
     //=================================计算马==============================================
-    uint8_t cbOkBird = 0;
+    //uint8_t cbOkBird = 0;
     uint8_t cb0 = 0;                //买到0位置
     uint8_t cb1 = 0;                //买到1位置
     uint8_t cb2 = 0;                //买到2位置

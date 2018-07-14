@@ -446,17 +446,15 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
             }
         }
     }
-
     Node *pTingNode = UIHelper::seekNodeByName(m_PlayerPanel[0], "ting_0");    //隐藏听牌
     pTingNode->setVisible(false);
-    m_pOperateNotifyGroup->removeAllChildren();
-    m_pOperateNotifyGroup->setVisible(false);             //移除通知
-
+    this->removeEffectNode("EffectNode");
+    this->m_pOperateNotifyGroup->removeAllChildren();
+    this->m_pOperateNotifyGroup->setVisible(false);
     //显示结算界面
     auto ui = GameOverDlg::create();
     ui->setGameUI(this, GameEnd);
     DialogManager::shared()->showDialog(ui);
-
     return true;
 }
 
@@ -1097,9 +1095,9 @@ void GameLayer::onOperateTouch(Ref *ref, ui::Widget::TouchEventType eventType) {
                 if (strcmp(btnName.c_str(), "btn_guo") == 0) {
                     OperateCard.cbOperateCode = WIK_NULL;
                     OperateCard.cbOperateCard = static_cast<uint8_t>(iTag);
-                    m_pOperateNotifyGroup->removeAllChildren();
-                    m_pOperateNotifyGroup->setVisible(false);
                 }
+                m_pOperateNotifyGroup->removeAllChildren();
+                m_pOperateNotifyGroup->setVisible(false);
                 OperateCard.cbOperateUser = m_MeChairID;
                 m_GameEngine->onUserOperateCard(OperateCard);
                 break;
