@@ -102,6 +102,9 @@ protected:
         }
         return false;
     }
+    bool registerCtrl(std::string name, Node** ctrl) {
+        return registerCtrl(name.c_str(), ctrl);
+    }
 
 private:
 	void bindNodeByName(Node* node) {

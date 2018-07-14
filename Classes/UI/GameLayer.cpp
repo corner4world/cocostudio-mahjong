@@ -15,6 +15,13 @@
 GameLayer::GameLayer()  : IDialog() {
     RegDialogCtrl("Button_Exit", m_btnExit);
     RegDialogCtrl("Button_Set", m_btnSetting);
+    RegDialogCtrl("OperateNotifyGroup", m_pOperateNotifyGroup);
+    RegDialogCtrl("Text_LeftCard", m_pTextCardNum);
+    for (int i = 0; i < GAME_PLAYER; i++) {
+        //初始化头像节点数组
+        RegDialogCtrl(utility::toString("face_frame_", i), m_FaceFrame[i]);
+        RegDialogCtrl(utility::toString("PlayerPanel_", i), m_PlayerPanel[i]);
+    }
     m_CurPlayer = 0;
     m_MeChairID = 0;
     m_GameEngine = GameEngine::GetGameEngine();  //构造游戏引擎
@@ -32,7 +39,7 @@ GameLayer::~GameLayer() {
 
 void GameLayer::onUILoaded() {
     m_btnExit->addClickEventListener([this](Ref* sender) {
-        //退出游戏按钮
+        // 退出游戏按钮
         auto alert = AlertDlg::create();
         alert->setAlertType(AlertDlg::ENUM_CONFIRM);
         alert->setCallback([]() {
@@ -47,18 +54,14 @@ void GameLayer::onUILoaded() {
         DialogManager::shared()->showDialog(alert);
     });
     m_btnSetting->addClickEventListener([this](Ref* sender) {
-        //游戏设置按钮
+        // 游戏设置按钮
         DialogManager::shared()->showDialog(SettingDlg::create());
     });
-    for (unsigned char i = 0; i < GAME_PLAYER; i++) {       //初始化头像节点数组
-        m_FaceFrame[i] = UIHelper::seekNodeByName(m_rootNode, utility::toString("face_frame_", (int) i));
-        m_PlayerPanel[i] = UIHelper::seekNodeByName(m_rootNode, utility::toString("PlayerPanel_", (int) i));
-    }
-    m_pOperateNotifyGroup = UIHelper::seekNodeByName(m_rootNode, "OperateNotifyGroup");   //操作节点
-    m_pTextCardNum = dynamic_cast<ui::Text *>(UIHelper::seekNodeByName(m_rootNode, "Text_LeftCard"));   //操作节点 
+    // 玩家加入游戏
     RealPlayer *pIPlayer = new RealPlayer(IPlayer::MALE, this);
-    m_GameEngine->onUserEnter(pIPlayer);    //玩家加入游戏
-    schedule(CC_SCHEDULE_SELECTOR(GameLayer::aiEnterGame), 1.0f);    //创建个定时任务，用来添加机器人
+    m_GameEngine->onUserEnter(pIPlayer);
+    // 创建个定时任务，用来添加机器人
+    schedule(CC_SCHEDULE_SELECTOR(GameLayer::aiEnterGame), 1.0f);
 }
 /**
  * 初始化游戏变量
