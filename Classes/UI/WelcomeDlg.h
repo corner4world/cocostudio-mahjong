@@ -12,8 +12,6 @@ public:
 
     virtual void onEnter();
 
-	virtual void androidKeyBackClicked() {
-	}
 protected:
     virtual const char* csbName() const {return "res/HelloLayer.csb";}
 	virtual void onUILoaded();

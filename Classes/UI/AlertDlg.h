@@ -13,8 +13,6 @@ public:
 
     virtual void onEnter();
 
-    virtual void androidKeyBackClicked() {
-    }
     //提示类型
     enum AlertTypeEnum {
         ENUM_ALERT = 0,    //一个确定按钮
