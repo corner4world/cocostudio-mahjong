@@ -15,14 +15,14 @@
 #include "Utility.h"
 #include "GameEngine.h"
 #include "GameLogic.h"
+#include "GameOverDlg.h"
 
 using namespace cocos2d;
 
 class GameLayer : public BaseUILayer, IGameEngineEventListener {
-
+    friend class GameOverDlg;
 private:
     GameEngine *m_GameEngine;           //游戏引擎
-    Node *m_pGameOverNode;              //结算节点
     Node *m_FaceFrame[GAME_PLAYER];     //头像信息节点
     Node *m_PlayerPanel[GAME_PLAYER];   //玩家牌的区域
     Node *m_pOperateNotifyGroup;        //操作组
