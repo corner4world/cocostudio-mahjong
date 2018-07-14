@@ -31,6 +31,7 @@ protected:
 private:
     Button* m_btnYes;
     Button* m_btnNo;
+    Button* m_btnOK;
     Text* m_title;
     ui::ScrollView* m_scrollView;
     Node* m_one;

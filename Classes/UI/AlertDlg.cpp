@@ -3,14 +3,15 @@
 
 using namespace std;
 
-AlertDlg::AlertDlg() : IDialog(), m_yes(nullptr), m_no(nullptr)
+AlertDlg::AlertDlg() : IDialog()
 {
-    RegDialogCtrl("Button_Alert_OK", m_btnYes);
-    RegDialogCtrl("Button_Alert_Cancel", m_btnNo);
+    RegDialogCtrl("Button_Alert_NO", m_btnNo);
+    RegDialogCtrl("Button_Alert_YES", m_btnYes);
+    RegDialogCtrl("Button_Alert_OK", m_btnOK);
     RegDialogCtrl("Text_Alert_Title", m_title);
     RegDialogCtrl("ScrollView_Alert_Content", m_scrollView);
-    RegDialogCtrl("Panel_Button_Group_OK", m_one);
-    RegDialogCtrl("Panel_Button_Group_Cancel", m_two);
+    RegDialogCtrl("Panel_Button_Group_Alert", m_one);
+    RegDialogCtrl("Panel_Button_Group_Confirm", m_two);
 }
 //
 AlertDlg::~AlertDlg(){
@@ -21,6 +22,11 @@ void AlertDlg::onUILoaded() {
     m_rootNode->runAction(EaseElasticOut::create(ScaleTo::create(0.5f, 1.0f, 1.0f))); //动画
     m_rootNode->addChild(LayerColor::create(Color4B(0, 0, 0, 200)), -1);
     m_btnYes->addClickEventListener([this](Ref* sender){
+        if(m_yes) {
+            m_yes();
+        }
+    });
+    m_btnOK->addClickEventListener([this](Ref* sender){
         if(m_yes) {
             m_yes();
         }

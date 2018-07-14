@@ -245,6 +245,10 @@
           <Image Name="im_bg.png" />
           <Image Name="im_logo.png" />
         </Folder>
+        <Folder Name="SetLayer">
+          <Image Name="im_bg.png" />
+          <Image Name="im_close.png" />
+        </Folder>
         <Project Name="AlertLayer.csd" Type="Layer" />
         <Project Name="BtnGang.csd" Type="Node" />
         <Project Name="BtnGuo.csd" Type="Node" />
@@ -260,17 +264,11 @@
         <Project Name="Gang0.csd" Type="Node" />
         <Project Name="Gang1.csd" Type="Node" />
         <Project Name="HelloLayer.csd" Type="Layer" />
-        <Image Name="HelloWorld.png" />
-        <Project Name="MainScene.csd" Type="Scene" />
         <TTF Name="num.ttf" />
         <Project Name="Peng0.csd" Type="Node" />
         <Project Name="Peng1.csd" Type="Node" />
-        <Project Name="SignAnim.csd" Type="Node" />
         <Project Name="SetLayer.csd" Type="Layer" />
-        <Folder Name="SetLayer">
-          <Image Name="im_close.png" />
-          <Image Name="im_bg.png" />
-        </Folder>
+        <Project Name="SignAnim.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>
