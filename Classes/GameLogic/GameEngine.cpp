@@ -67,8 +67,8 @@ bool GameEngine::onUserEnter(IPlayer *pIPlayer) {
         log("玩家已满，无法加入！");
         return false;
     }
-    pIPlayer->setChairID(m_CurrChair++);
-    m_pIPlayer[pIPlayer->getChairID()] = pIPlayer;
+    pIPlayer->setChairID(m_CurrChair);
+    m_pIPlayer[m_CurrChair++] = pIPlayer;
     for (uint8_t i = 0; i < m_CurrChair; i++) {      //通知全部玩家有人进入游戏
         IGameEngineEventListener *pListener = m_pIPlayer[i]->getGameEngineEventListener();
         if (pListener != NULL) {

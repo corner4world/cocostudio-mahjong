@@ -43,12 +43,12 @@ void GameOverDlg::showResult() {
         m_pOverResultImage->loadTexture((GameEnd.lGameScore[m_gameUI->m_MeChairID] < 0) ? "res/GameOverLayer/result_lose.png" : "res/GameOverLayer/result_win.png");
     }
     //显示牌
-    for (uint8_t i = 0; i < m_gameUI->m_CurPlayer; i++) {
+    for (uint8_t i = 0; i < m_gameUI->m_GameEngine->getPlayerCount(); i++) {
         uint8_t cbViewID = m_gameUI->switchViewChairID(i);
         Node *pPlayerViewNode = UIHelper::seekNodeByName(m_rootNode, "PlayerView_" + utility::toString((int) cbViewID));
         ui::ImageView *pOverImgHead = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pPlayerViewNode, "ImageView_Over_Head")); //头像
         ui::Text *pOverScoreText = dynamic_cast<ui::Text *>(UIHelper::seekNodeByName(pPlayerViewNode, "Text_Over_Score"));       //分数
-        pOverImgHead->loadTexture(utility::toString("res/GameLayer/im_defaulthead_", m_gameUI->m_Players[i]->getSex() == IPlayer::FEMALE ? 0 : 1, ".png"));    //设置头像
+        pOverImgHead->loadTexture(utility::toString("res/GameLayer/im_defaulthead_", m_gameUI->m_GameEngine->getPlayer(i)->getSexAsInt(), ".png"));    //设置头像
         pOverScoreText->setString(((GameEnd.lGameScore[i] >= 0) ? utility::toString("+", GameEnd.lGameScore[i]) : utility::toString(GameEnd.lGameScore[i])));
         ui::Layout *pOverHandCard = dynamic_cast<ui::Layout *>(UIHelper::seekNodeByName(pPlayerViewNode, "Panel_Over_Hand_Card"));
         pOverHandCard->removeAllChildren();

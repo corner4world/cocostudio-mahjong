@@ -23,8 +23,6 @@ private:
     Node *m_pOperateNotifyGroup;        //操作组
     Node* m_pOutCard;                   //正在出牌的节点
     ui::Text *m_pTextCardNum;           //剩余牌数量
-    IPlayer *m_Players[GAME_PLAYER];    //全部玩家
-    uint8_t m_CurPlayer;                //当前玩家数量
     uint8_t m_MeChairID;                //自己的位置
     uint8_t m_iOutCardTimeOut;          //操作时间
 //游戏变量

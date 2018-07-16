@@ -22,7 +22,6 @@ GameLayer::GameLayer()  : IDialog() {
         RegDialogCtrl(utility::toString("face_frame_", i), m_FaceFrame[i]);
         RegDialogCtrl(utility::toString("PlayerPanel_", i), m_PlayerPanel[i]);
     }
-    m_CurPlayer = 0;
     m_MeChairID = 0;
     m_GameEngine = GameEngine::GetGameEngine();  //构造游戏引擎
     m_bOperate = false;
@@ -90,17 +89,17 @@ void GameLayer::aiEnterGame(float) {
 }
 
 bool GameLayer::onUserEnterEvent(IPlayer *pIPlayer) {
-    m_Players[m_CurPlayer++] = pIPlayer;
-    for (unsigned char i = 0; i < m_CurPlayer; i++) {           //显示头像
-        ui::ImageView *pImageHeader = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_FaceFrame[i], "Image_Header"));  //头像
-        ui::Text *pTextScore = dynamic_cast<ui::Text *>(UIHelper::seekNodeByName(m_FaceFrame[i], "Text_Score"));  //头像
-        pTextScore->setString("0");     //进来分数为0
-        pImageHeader->loadTexture(utility::toString("res/GameLayer/im_defaulthead_", m_Players[i]->getSex() == IPlayer::FEMALE ? 0 : 1, ".png"));    //设置头像
-    }
-    if (m_CurPlayer == GAME_PLAYER) {
+    if (m_GameEngine->getPlayerCount() >= GAME_PLAYER) {
         unschedule(CC_SCHEDULE_SELECTOR(GameLayer::aiEnterGame));   //人满，关闭ai加入任务
-        return true;
-    } //显示头像
+    }
+    if (pIPlayer && pIPlayer->getChairID() < GAME_PLAYER) {
+        uint8_t uChairID = pIPlayer->getChairID();
+        // 显示头像
+        ui::ImageView *pImageHeader = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(m_FaceFrame[uChairID], "Image_Header"));  //头像
+        ui::Text *pTextScore = dynamic_cast<ui::Text *>(UIHelper::seekNodeByName(m_FaceFrame[uChairID], "Text_Score"));  //头像
+        pTextScore->setString("0");     //进来分数为0
+        pImageHeader->loadTexture(utility::toString("res/GameLayer/im_defaulthead_", pIPlayer->getSexAsInt(), ".png"));    //设置头像
+    }
     return true;
 }
 
@@ -289,9 +288,11 @@ bool GameLayer::onOutCardEvent(CMD_S_OutCard OutCard) {
         ui::ImageView *pHighlight = dynamic_cast<ui::ImageView *>(this->getChildByName( utility::toString("Image_Wheel_", j) ));
         pHighlight->setVisible(false);
     }
-    playSound(utility::toString("raw/Mahjong/", (IPlayer::FEMALE == m_Players[OutCard.cbOutCardUser]->getSex() ? "female" : "male"), "/mjt", utility::toString((
-            (OutCard.cbOutCardData & MASK_COLOR)
-                    >> 4) + 1, "_", OutCard.cbOutCardData & MASK_VALUE), ".mp3"));    //播放牌的声音
+    playSound(utility::toString("raw/Mahjong/"
+                                , m_GameEngine->getPlayer(OutCard.cbOutCardUser)->getSexAsStr()
+                                , "/mjt"
+                                , utility::toString(((OutCard.cbOutCardData & MASK_COLOR) >> 4) + 1, "_", OutCard.cbOutCardData & MASK_VALUE)
+                                , ".mp3"));    //播放牌的声音
     return true;
 }
 
@@ -376,7 +377,7 @@ bool GameLayer::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
         default:
             break;
     }
-    std::string strSex = (IPlayer::FEMALE == m_Players[OperateResult.cbOperateUser]->getSex() ? "female" : "male");
+    std::string strSex = m_GameEngine->getPlayer(OperateResult.cbOperateUser)->getSexAsStr();
     switch (OperateResult.cbOperateCode) {
         case WIK_NULL: {
             break;
@@ -435,7 +436,7 @@ bool GameLayer::onGameEndEvent(CMD_S_GameEnd GameEnd) {
     showAndUpdateUserScore(GameEnd.lGameScoreTable);    //更新分数
     for (uint8_t i = 0; i < GAME_PLAYER; i++) {                    //播放音效
         if (FvMask::HasAny(GameEnd.cbHuUser, _MASK_(i))) {
-            std::string strSex = (IPlayer::FEMALE == m_Players[i]->getSex() ? "female" : "male");
+            std::string strSex = m_GameEngine->getPlayer(i)->getSexAsStr();
             uint8_t cbViewID = switchViewChairID(i);
             if (FvMask::HasAny(GameEnd.cbHuUser, _MASK_(GameEnd.cbProvideUser))) {  //自摸
                 playSound(utility::toString("raw/Mahjong/", strSex, "/zimo.mp3"));
@@ -621,7 +622,7 @@ bool GameLayer::showOperateNotify(CMD_S_OperateNotify OperateNotify) {
  * @return
  */
 bool GameLayer::showAndUpdateHandCard() {
-    for (uint8_t i = 0; i < m_CurPlayer; i++) {
+    for (uint8_t i = 0; i < m_GameEngine->getPlayerCount(); i++) {
         uint8_t viewChairID = switchViewChairID(i);
         uint8_t bCardData[MAX_COUNT];  //手上的牌
         memset(bCardData, 0, sizeof(bCardData));
@@ -976,7 +977,7 @@ void GameLayer::removeEffectNode(std::string strNodeName) {
  * @return
  */
 bool GameLayer::showAndUpdateDiscardCard() {
-    for (uint8_t cbChairID = 0; cbChairID < m_CurPlayer; cbChairID++) {
+    for (uint8_t cbChairID = 0; cbChairID < m_GameEngine->getPlayerCount(); cbChairID++) {
         uint8_t cbViewID = switchViewChairID(cbChairID);
         switch (cbViewID) {
             case 0: {
@@ -1208,7 +1209,7 @@ void GameLayer::onCardTouch(Ref *ref, ui::Widget::TouchEventType eventType) {
  * @return
  */
 uint8_t GameLayer::switchViewChairID(uint8_t cbChairID) {
-    return (cbChairID + m_CurPlayer - m_MeChairID) % m_CurPlayer;
+    return (cbChairID + m_GameEngine->getPlayerCount() - m_MeChairID) % m_GameEngine->getPlayerCount();
 }
 
 /**
@@ -1217,7 +1218,7 @@ uint8_t GameLayer::switchViewChairID(uint8_t cbChairID) {
  * @return
  */
 uint8_t GameLayer::switchChairViewID(uint8_t cbViewID) {
-    return (cbViewID + m_MeChairID) % m_CurPlayer;
+    return (cbViewID + m_MeChairID) % m_GameEngine->getPlayerCount();
 }
 
 /**

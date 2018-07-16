@@ -83,6 +83,16 @@ public:
 
 
 class GameEngine {
+public:
+    IPlayer* getPlayer(uint8_t uChair) const {
+        if(uChair < GAME_PLAYER) {
+            return m_pIPlayer[uChair];
+        }
+        return nullptr;
+    }
+    uint8_t getPlayerCount() const {
+        return m_CurrChair;
+    }
 
 private:
     IPlayer * m_pIPlayer[GAME_PLAYER];        //游戏玩家

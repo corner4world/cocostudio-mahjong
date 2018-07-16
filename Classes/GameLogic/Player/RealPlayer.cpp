@@ -11,7 +11,7 @@
  */
 RealPlayer::RealPlayer(PlayerSex sex, IGameEngineEventListener *pGameEngineEventListener)
         : IPlayer(false, sex, pGameEngineEventListener) {
-
+    pGameEngineEventListener->setIPlayer(this);
 }
 
 RealPlayer::~RealPlayer() {
