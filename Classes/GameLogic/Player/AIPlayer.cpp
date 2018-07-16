@@ -1,9 +1,8 @@
 //
 // Created by farmer on 2018/7/5.
 //
-
+#include "Common.h"
 #include "AIPlayer.h"
-
 
 /**
  * AI玩家

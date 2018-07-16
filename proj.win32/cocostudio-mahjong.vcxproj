@@ -14,6 +14,7 @@
     <ProjectGuid>{76A39BB2-9B84-4C65-98A5-654D86B86F2A}</ProjectGuid>
     <RootNamespace>test_win32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -75,7 +76,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\GameLogic\Player;..\Classes\UI;..\Classes\Scene;..\Classes\Manager;..\Classes\GameLogic;..\Classes\Common;..\Classes\App;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -100,7 +101,8 @@
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -111,13 +113,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       <Outputs>$(TargetName).cab</Outputs>
       <Inputs>$(TargetFileName)</Inputs>
     </CustomBuildStep>
+    <ClCompile>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/source-charset:utf-8 /execution-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\GameLogic\Player;..\Classes\UI;..\Classes\Scene;..\Classes\Manager;..\Classes\GameLogic;..\Classes\Common;..\Classes\App;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -127,6 +131,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/source-charset:utf-8 /execution-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libcurl.lib;%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
@@ -143,17 +148,54 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\App\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Common\GameConfig.cpp" />
+    <ClCompile Include="..\Classes\Common\UIHelper.cpp" />
+    <ClCompile Include="..\Classes\GameLogic\AIEngine.cpp" />
+    <ClCompile Include="..\Classes\GameLogic\GameEngine.cpp" />
+    <ClCompile Include="..\Classes\GameLogic\GameLogic.cpp" />
+    <ClCompile Include="..\Classes\GameLogic\Player\AIPlayer.cpp" />
+    <ClCompile Include="..\Classes\GameLogic\Player\RealPlayer.cpp" />
+    <ClCompile Include="..\Classes\Manager\DialogManager.cpp" />
+    <ClCompile Include="..\Classes\Scene\BaseScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\LoadingScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\PlayScene.cpp" />
+    <ClCompile Include="..\Classes\UI\AlertDlg.cpp" />
+    <ClCompile Include="..\Classes\UI\GameLayer.cpp" />
+    <ClCompile Include="..\Classes\UI\GameOverDlg.cpp" />
+    <ClCompile Include="..\Classes\UI\SettingDlg.cpp" />
+    <ClCompile Include="..\Classes\UI\WelcomeDlg.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\App\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Common\Common.h" />
+    <ClInclude Include="..\Classes\Common\FvMask.h" />
+    <ClInclude Include="..\Classes\Common\GameCmd.h" />
+    <ClInclude Include="..\Classes\Common\GameConfig.h" />
+    <ClInclude Include="..\Classes\Common\UIHelper.h" />
+    <ClInclude Include="..\Classes\Common\Utility.h" />
+    <ClInclude Include="..\Classes\GameLogic\AIEngine.h" />
+    <ClInclude Include="..\Classes\GameLogic\GameEngine.h" />
+    <ClInclude Include="..\Classes\GameLogic\GameLogic.h" />
+    <ClInclude Include="..\Classes\GameLogic\Player\AIPlayer.h" />
+    <ClInclude Include="..\Classes\GameLogic\Player\IPlayer.h" />
+    <ClInclude Include="..\Classes\GameLogic\Player\RealPlayer.h" />
+    <ClInclude Include="..\Classes\Manager\DialogManager.h" />
+    <ClInclude Include="..\Classes\Scene\BaseScene.h" />
+    <ClInclude Include="..\Classes\Scene\LoadingScene.h" />
+    <ClInclude Include="..\Classes\Scene\PlayScene.h" />
+    <ClInclude Include="..\Classes\UI\AlertDlg.h" />
+    <ClInclude Include="..\Classes\UI\GameLayer.h" />
+    <ClInclude Include="..\Classes\UI\GameOverDlg.h" />
+    <ClInclude Include="..\Classes\UI\IDialog.h" />
+    <ClInclude Include="..\Classes\UI\SettingDlg.h" />
+    <ClInclude Include="..\Classes\UI\WelcomeDlg.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
