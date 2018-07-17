@@ -23,12 +23,12 @@ void DelayCall::tick(float delta) {
     if (dc_funListTemp.empty() && dc_funList.empty()) {
         return;
     }
-    for (auto& it = dc_funListTemp.begin(); it != dc_funListTemp.end(); ) {
+    for (std::map< size_t, tick_item >::const_iterator it = dc_funListTemp.begin(); it != dc_funListTemp.end(); ) {
         dc_funList[it->first] = it->second;
         ++it;
     }
     dc_funListTemp.clear();
-    for (auto& it = dc_funList.begin(); it != dc_funList.end(); ) {
+    for (std::map< size_t, tick_item >::iterator it = dc_funList.begin(); it != dc_funList.end(); ) {
         it->second.time += delta;
         if (it->second.time - it->second.delay > 0.0001f) {
             it->second.count--;

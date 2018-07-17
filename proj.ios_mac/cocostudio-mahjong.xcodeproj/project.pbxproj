@@ -50,6 +50,8 @@
 		AC09DC8220F8F86600B1348D /* WelcomeDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC8020F8F86600B1348D /* WelcomeDlg.cpp */; };
 		AC09DC8620F8FE9000B1348D /* AlertDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */; };
 		AC09DC8720F8FE9000B1348D /* AlertDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */; };
+		AC8314E020FDB0CF00768CDF /* DelayCall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC8314DF20FDB0CF00768CDF /* DelayCall.cpp */; };
+		AC8314E120FDB0CF00768CDF /* DelayCall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC8314DF20FDB0CF00768CDF /* DelayCall.cpp */; };
 		ACB68C7820F9D65C004875DC /* GameOverDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */; };
 		ACB68C7920F9D65C004875DC /* GameOverDlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */; };
 		ACB68C7E20F9DFE5004875DC /* UIHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACB68C7C20F9DFE5004875DC /* UIHelper.cpp */; };
@@ -168,6 +170,8 @@
 		AC09DC8020F8F86600B1348D /* WelcomeDlg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WelcomeDlg.cpp; sourceTree = "<group>"; };
 		AC09DC8420F8FE9000B1348D /* AlertDlg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlertDlg.cpp; sourceTree = "<group>"; };
 		AC09DC8520F8FE9000B1348D /* AlertDlg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertDlg.h; sourceTree = "<group>"; };
+		AC8314DD20FDB0CF00768CDF /* DelayCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayCall.h; sourceTree = "<group>"; };
+		AC8314DF20FDB0CF00768CDF /* DelayCall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DelayCall.cpp; sourceTree = "<group>"; };
 		ACB68C7620F9D65C004875DC /* GameOverDlg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverDlg.cpp; sourceTree = "<group>"; };
 		ACB68C7720F9D65C004875DC /* GameOverDlg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverDlg.h; sourceTree = "<group>"; };
 		ACB68C7C20F9DFE5004875DC /* UIHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIHelper.cpp; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 			isa = PBXGroup;
 			children = (
 				AC09DC6D20F8F62E00B1348D /* Common.h */,
+				AC8314DF20FDB0CF00768CDF /* DelayCall.cpp */,
+				AC8314DD20FDB0CF00768CDF /* DelayCall.h */,
 				B39AAC9D7ADAAAD710AFECE3 /* FvMask.h */,
 				B39AAC6B50BFC88432A4132B /* GameCmd.h */,
 				B39AAD9D487DF6FBE6AD5DBC /* GameConfig.cpp */,
@@ -600,6 +606,7 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				1AF87B8A1F6F7822007BE51C /* main.m in Sources */,
 				AC09DC6920F8F5D700B1348D /* DialogManager.cpp in Sources */,
+				AC8314E020FDB0CF00768CDF /* DelayCall.cpp in Sources */,
 				AC09DC8120F8F86600B1348D /* WelcomeDlg.cpp in Sources */,
 				B39AA5761657FDA248D970D3 /* GameLayer.cpp in Sources */,
 				ACB68C7E20F9DFE5004875DC /* UIHelper.cpp in Sources */,
@@ -625,6 +632,7 @@
 				ACB68C7920F9D65C004875DC /* GameOverDlg.cpp in Sources */,
 				AC09DC7E20F8F75700B1348D /* LoadingScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				AC8314E120FDB0CF00768CDF /* DelayCall.cpp in Sources */,
 				AC09DC8220F8F86600B1348D /* WelcomeDlg.cpp in Sources */,
 				B39AA4492CBDBCF2F1A16055 /* GameLayer.cpp in Sources */,
 				B39AA40DC6B67CF94ED7C175 /* AIPlayer.cpp in Sources */,
