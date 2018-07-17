@@ -7,7 +7,7 @@
 
 using namespace std;
 
-SettingDlg::SettingDlg() : IDialog(), m_btnClose(nullptr), m_pSliderVolume(nullptr)
+SettingDlg::SettingDlg() : IDialog()
 {
     RegDialogCtrl("Button_Close", m_btnClose);
     RegDialogCtrl("Slider_Volume", m_pSliderVolume);
@@ -38,8 +38,4 @@ void SettingDlg::onUILoaded() {
                 break;
         }
     });
-}
-
-void SettingDlg::onEnter() {
-    IDialog::onEnter();
 }

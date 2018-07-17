@@ -9,7 +9,6 @@
 #include "GameLogic.h"
 #include "FvMask.h"
 
-
 class IPlayer;
 
 enum EstimateKind {
@@ -77,22 +76,14 @@ public:
      * @param GameEnd
      * @return
      */
-    virtual bool onGameEndEvent(CMD_S_GameEnd GameEnd) = 0;
+    virtual bool onGameEndEvent(CMD_S_GameEnd& GameEnd) = 0;
 
 };
 
 
 class GameEngine {
 public:
-    IPlayer* getPlayer(uint8_t uChair) const {
-        if(uChair < GAME_PLAYER) {
-            return m_pIPlayer[uChair];
-        }
-        return nullptr;
-    }
-    uint8_t getPlayerCount() const {
-        return m_CurrChair;
-    }
+    static GameEngine *GetGameEngine();  //获取单例
 
 private:
     IPlayer * m_pIPlayer[GAME_PLAYER];        //游戏玩家
@@ -128,6 +119,7 @@ private:
     uint8_t m_cbHuKind[GAME_PLAYER];              //胡牌类型
     uint8_t m_cbHuSpecial[GAME_PLAYER];           //胡牌一些特殊情况
     uint64_t m_llHuRight[GAME_PLAYER];            //胡牌权重
+
 private:
     uint8_t m_cbSendCardData;                     //发牌扑克
     uint8_t m_cbSendCardCount;                    //发牌数目
@@ -138,7 +130,6 @@ private:
     tagWeaveItem m_WeaveItemArray[GAME_PLAYER][MAX_WEAVE];//组合扑克
 
 public:
-
     GameEngine();   //构造函数
     ~GameEngine();  //析构函数
 
@@ -152,9 +143,21 @@ public:
     bool dispatchCardData(uint8_t cbCurrentUser, bool bTail = false);    //发牌
     bool estimateUserRespond(uint8_t cbCurrentUser, uint8_t cbCurrentCard, EstimateKind estimateKind);  //检测响应
     bool sendOperateNotify();   //发送操作通知
-public:
-    static GameEngine *GetGameEngine();  //获取单例
+
     bool onUserOperateCard(CMD_C_OperateCard OperateCard);
+
+    uint8_t switchViewChairID(uint8_t cbChairID, uint8_t uMeChairID);   //椅子位置切换成视图位置
+    uint8_t switchChairViewID(uint8_t cbViewID, uint8_t uMeChairID);    //视图位置切换成椅子位置
+
+    IPlayer* getPlayer(uint8_t uChair) const {
+        if (uChair < GAME_PLAYER) {
+            return m_pIPlayer[uChair];
+        }
+        return nullptr;
+    }
+    uint8_t getPlayerCount() const {
+        return m_CurrChair;
+    }
 };
 
 

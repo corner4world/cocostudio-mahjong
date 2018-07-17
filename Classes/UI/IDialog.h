@@ -14,7 +14,6 @@ public:
 	IDialog() : T()
 	, m_rootNode(nullptr)
     , m_rootAction(nullptr)
-	, m_nAutoScaleRate(1.0f)
     , m_canClosebyBackBtn(true)
 	{
 		m_ntfMgr = __NotificationCenter::getInstance();
@@ -38,15 +37,12 @@ public:
 		if(this->m_rootNode) {
             this->m_rootAction = CSLoader::createTimeline(fileName);
 			this->addChild(this->m_rootNode, 1);
-			//log("------------bindNodeByName------------");
 			this->bindNodeByName(this->m_rootNode);
 			this->onUILoaded();
 			return true;
 		}
 		return false;
 	}
-
-	float getAutoScaleRate() const {return this->m_nAutoScaleRate;}
 
 	virtual void onEnter() {
 		T::onEnter();
@@ -115,14 +111,6 @@ private:
 		std::string name = node->getName();
 		//log("%s", name.c_str());
 		if(!name.empty()) {
-            if(name == "m_bgColorPanel") {
-                m_bgColorPanel = dynamic_cast<Layout*>(node);
-                if(m_bgColorPanel) {
-                    cocos2d::Size sizeOverlayer = Director::getInstance()->getWinSize();
-                    m_bgColorPanel->cocos2d::Node::setPosition(0,0);
-                    m_bgColorPanel->setContentSize(sizeOverlayer);
-                }
-            }
 			this->m_allCtrl.insert(std::make_pair(name, node));
 			std::map<std::string, Node**>::iterator iter = this->m_regCtrl.find(name);
 			if(iter != this->m_regCtrl.end()) {
@@ -151,9 +139,6 @@ protected:
 	__NotificationCenter* m_ntfMgr;
 	Node* m_rootNode;
     ActionTimeline* m_rootAction;
-	float m_nAutoScaleRate;
-    Layout* m_bgColorPanel;
-	int m_offsetY;
 
 private:
     std::map<std::string, Node*>  m_allCtrl;

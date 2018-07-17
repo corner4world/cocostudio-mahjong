@@ -39,22 +39,22 @@ private:
     Vec2 m_startVec = Vec2(0,0);                                           //记录位置
     float m_outY = 30;                                                     //偏移
     float m_cardPosY = 0.0f;                                               //偏移
-public:
-    CREATE_FUNC(GameLayer)
 
+public:
     GameLayer();    // 构造函数
     virtual ~GameLayer();   //析构
+    CREATE_FUNC(GameLayer);
+
 protected:
     Button* m_btnExit;
     Button* m_btnSetting;
     virtual const char* csbName() const {return "res/GameLayer.csb";}
     virtual void onUILoaded();
+
 public:
     void initGame();                    //初始化游戏变量
-    void aiEnterGame(float f);          //机器人进入游戏
     void sendCardTimerUpdate(float f);  //倒计时
     void onCardTouch(Ref *ref, ui::Widget::TouchEventType eventType);   //触摸牌的事件
-    void onOperateTouch(Ref *ref, ui::Widget::TouchEventType eventType);//操作事件
 
 private:
     virtual bool onUserEnterEvent(IPlayer *pIPlayer);            //玩家进入事件
@@ -63,7 +63,7 @@ private:
     virtual bool onOutCardEvent(CMD_S_OutCard OutCard);          //出牌事件
     virtual bool onOperateNotifyEvent(CMD_S_OperateNotify OperateNotify);   //操作通知事件
     virtual bool onOperateResultEvent(CMD_S_OperateResult OperateResult);   //操作结果事件
-    virtual bool onGameEndEvent(CMD_S_GameEnd GameEnd);                     //移除特效
+    virtual bool onGameEndEvent(CMD_S_GameEnd& GameEnd);                     //移除特效
 
 private:
     bool showAndUpdateHandCard();                                                   //显示手上的牌
@@ -75,9 +75,6 @@ private:
     bool showAndUpdateUserScore(int64_t lGameScoreTable[GAME_PLAYER]);             //更新分数
     
 private:
-    uint8_t switchViewChairID(uint8_t cbChairID);   //椅子位置切换成视图位置
-    uint8_t switchChairViewID(uint8_t cbViewID);    //视图位置切换成椅子位置
-    void playSound(std::string file);               //播放声音
     void removeEffectNode(std::string strNodeName); //移除特效
 };
 

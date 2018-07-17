@@ -393,7 +393,8 @@ uint8_t GameLogic::analyseHuCard(const uint8_t *cbCardIndex, tagWeaveItem *Weave
 
     //结果判断
     if (huRight != 0x0) {                                                   //胡牌
-        /*//有些地方麻将规则胡牌和番数有关，需要在此处理
+        /*
+        //有些地方麻将规则胡牌和番数有关，需要在此处理
         uint8_t cbFs = getHuFanShu(huRight, huKind, huSpecial);             //计算番数
         //如果bCheck为true，永远返回false，不存在枪杆
         if ((huKind & CHK_QG) == 0x0 && !bZimo) {                           //不是枪杆并且不是自摸才判定

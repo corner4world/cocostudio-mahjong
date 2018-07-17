@@ -11,8 +11,6 @@ public:
     virtual ~AlertDlg();
     CREATE_FUNC(AlertDlg);
 
-    virtual void onEnter();
-
     //提示类型
     enum AlertTypeEnum {
         ENUM_ALERT = 0,    //一个确定按钮

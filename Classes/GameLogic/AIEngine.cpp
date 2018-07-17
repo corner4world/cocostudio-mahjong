@@ -175,7 +175,7 @@ bool AIEngine::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
  * @param GameEnd
  * @return
  */
-bool AIEngine::onGameEndEvent(CMD_S_GameEnd GameEnd) {
+bool AIEngine::onGameEndEvent(CMD_S_GameEnd& GameEnd) {
     cocos2d::log("机器人接收到游戏结束事件");
     return true;
 }

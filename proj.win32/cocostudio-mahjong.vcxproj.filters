@@ -25,6 +25,9 @@
     <Filter Include="src\Scene">
       <UniqueIdentifier>{0962e04c-dedb-4fb6-8749-45b3ca28796e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameLogic\Player">
+      <UniqueIdentifier>{11216de5-9f9b-4806-894e-56ab080636be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,22 +48,10 @@
     <ClCompile Include="..\Classes\GameLogic\AIEngine.cpp">
       <Filter>src\GameLogic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameLogic\Player\AIPlayer.cpp">
-      <Filter>src\GameLogic</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameLogic\GameEngine.cpp">
       <Filter>src\GameLogic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Common\GameConfig.cpp">
-      <Filter>src\GameLogic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\UI\GameLayer.cpp">
-      <Filter>src\GameLogic</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameLogic\GameLogic.cpp">
-      <Filter>src\GameLogic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameLogic\Player\RealPlayer.cpp">
       <Filter>src\GameLogic</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\App\AppDelegate.cpp">
@@ -80,6 +71,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Common\UIHelper.cpp">
       <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UI\GameLayer.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\GameConfig.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLogic\Player\AIPlayer.cpp">
+      <Filter>src\GameLogic\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLogic\Player\RealPlayer.cpp">
+      <Filter>src\GameLogic\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,25 +107,10 @@
     <ClInclude Include="..\Classes\GameLogic\AIEngine.h">
       <Filter>src\GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameLogic\Player\AIPlayer.h">
-      <Filter>src\GameLogic</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameLogic\GameEngine.h">
       <Filter>src\GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Common\GameConfig.h">
-      <Filter>src\GameLogic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\UI\GameLayer.h">
-      <Filter>src\GameLogic</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameLogic\GameLogic.h">
-      <Filter>src\GameLogic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameLogic\Player\IPlayer.h">
-      <Filter>src\GameLogic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameLogic\Player\RealPlayer.h">
       <Filter>src\GameLogic</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\App\AppDelegate.h">
@@ -154,6 +142,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Common\Utility.h">
       <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UI\GameLayer.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\GameConfig.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLogic\Player\AIPlayer.h">
+      <Filter>src\GameLogic\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLogic\Player\IPlayer.h">
+      <Filter>src\GameLogic\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLogic\Player\RealPlayer.h">
+      <Filter>src\GameLogic\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -36,7 +36,7 @@ public:
     virtual bool onOutCardEvent(CMD_S_OutCard OutCard);         //出牌事件
     virtual bool onOperateNotifyEvent(CMD_S_OperateNotify OperateNotify);   //操作通知事件
     virtual bool onOperateResultEvent(CMD_S_OperateResult OperateResult);   //操作结果事件
-    virtual bool onGameEndEvent(CMD_S_GameEnd GameEnd);                     //游戏结束事件
+    virtual bool onGameEndEvent(CMD_S_GameEnd& GameEnd);                     //游戏结束事件
     //操作
 public:
     void sendCard(float f);

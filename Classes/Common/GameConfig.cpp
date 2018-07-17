@@ -26,7 +26,7 @@ GameConfig::~GameConfig() {
  * 加载配置
  */
 void GameConfig::loadConfig() {
-    m_EffectsVolume = UserDefault::getInstance()->getFloatForKey("EffectsVolume", 0.8);
+    m_EffectsVolume = UserDefault::getInstance()->getFloatForKey("EffectsVolume", 0.8f);
 }
 
 /**

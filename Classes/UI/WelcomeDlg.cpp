@@ -29,8 +29,3 @@ void WelcomeDlg::onUILoaded() {
     });
 }
 
-void WelcomeDlg::onEnter()
-{
-	IDialog::onEnter();
-}
-

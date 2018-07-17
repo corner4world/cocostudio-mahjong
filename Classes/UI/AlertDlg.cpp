@@ -13,7 +13,7 @@ AlertDlg::AlertDlg() : IDialog()
     RegDialogCtrl("Panel_Button_Group_Alert", m_one);
     RegDialogCtrl("Panel_Button_Group_Confirm", m_two);
 }
-//
+
 AlertDlg::~AlertDlg(){
 }
 
@@ -36,10 +36,6 @@ void AlertDlg::onUILoaded() {
             m_no();
         }
     });
-}
-
-void AlertDlg::onEnter() {
-	IDialog::onEnter();
 }
 
 /**
@@ -68,7 +64,6 @@ void AlertDlg::setAlertType(AlertDlg::AlertTypeEnum typeEnum, bool autoClose) {
  *  内容
  * @param title
  *  标题
-
  */
 void AlertDlg::setText(std::string content, std::string title) {
     m_title->setString(title);

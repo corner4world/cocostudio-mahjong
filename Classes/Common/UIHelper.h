@@ -19,6 +19,7 @@ public:
     static std::string getHandCardImagePath(uint8_t cbViewID, uint8_t cbData);         //获取手上的牌图片路径
 
 public:
+    static void playSound(std::string file);               //播放声音
     /**
      * 通过Tag查找子节点
      * */

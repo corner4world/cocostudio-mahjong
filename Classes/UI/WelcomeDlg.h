@@ -10,8 +10,6 @@ public:
     virtual ~WelcomeDlg();
     CREATE_FUNC(WelcomeDlg);
 
-    virtual void onEnter();
-
 protected:
     virtual const char* csbName() const {return "res/HelloLayer.csb";}
 	virtual void onUILoaded();

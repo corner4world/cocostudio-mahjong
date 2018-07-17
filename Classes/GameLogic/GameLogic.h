@@ -11,7 +11,6 @@
 #define    MASK_COLOR                    0xF0                                //花色掩码
 #define    MASK_VALUE                    0x0F                                //数值掩码
 
-
 #define FALSE        0
 #define TRUE         1
 
@@ -20,8 +19,6 @@
 #define WIK_G        0x02        //杠
 #define WIK_H        0x04        //胡
 #define WIK_S        0x08        //吃
-
-
 
 //////////////////////////////////////////////////////////////////////////
 //胡牌类型
@@ -33,7 +30,6 @@
 #define CHR_QD       0x10    //七对
 #define CHR_DH       0x20    //地胡
 #define CHR_TH       0x40    //天胡
-
 
 //胡牌方式
 #define CHK_NULL     0x00        //非胡
@@ -49,7 +45,6 @@
 #define CHS_TH       0x04        //天胡
 #define CHS_GP       0x08        //有杠
 #define CHS_KZ       0x10        //卡张
-
 
 //////////////////////////////////////////////////////////////////////////
 //类型子项
@@ -93,16 +88,14 @@ struct tagTingResult{
 typedef std::vector<tagAnalyseItem> CAnalyseItemArray;
 
 class GameLogic {
-
 public:
-
     static void shuffle(uint8_t cbCardData[], uint8_t cbMaxCount);//洗牌
     static bool removeCard(uint8_t cbCardIndex[MAX_INDEX], uint8_t cbRemoveCard);//删除扑克
     static bool removeCard(uint8_t cbCardIndex[MAX_INDEX], uint8_t cbRemoveCard[], uint8_t cbRemoveCount); //删除扑克
     static bool removeCard(uint8_t cbCardData[], uint8_t cbCardCount, uint8_t cbRemoveCard[], uint8_t cbRemoveCount); //删除扑克
     static bool removeAllCard(uint8_t cbCardIndex[MAX_INDEX], uint8_t cbRemoveCard);   //移除指定的牌
-
-public://内部函数
+public:
+    //内部函数
     static bool isValidCard(uint8_t cbCardData);           //有效判断
     static uint8_t switchToCardData(uint8_t cbCardIndex);  //扑克转换
     static uint8_t switchToCardIndex(uint8_t cbCardData);  //扑克转换
@@ -110,15 +103,16 @@ public://内部函数
     static uint8_t switchToCardIndex(uint8_t cbCardData[], uint8_t cbCardCount, uint8_t cbCardIndex[MAX_INDEX]); //扑克转换
     static uint8_t getCardCount(uint8_t cbCardIndex[MAX_INDEX]);  //扑克数目
     static uint8_t getWeaveCard(uint8_t cbWeaveKind, uint8_t cbCenterCard, uint8_t cbCardBuffer[]);//组合扑克
-    //动作判断
 public:
+    //动作判断
     static uint8_t estimatePengCard(uint8_t cbCardIndex[MAX_INDEX], uint8_t cbCurrentCard); //碰牌判断
     static uint8_t estimateGangCard(uint8_t cbCardIndex[MAX_INDEX], uint8_t cbCurrentCard); //杠牌判断
-    //等级函数
 public:
+    //等级函数
     static uint8_t getUserActionRank(uint8_t wUserAction); //动作等级
     static uint8_t getHuFanShu(const uint64_t huRight, const uint8_t huKind, const uint8_t huSpecial); //胡牌分数
-public://分析函数
+public:
+    //分析函数
     static uint8_t analyseGangCard(const uint8_t cbCardIndex[MAX_INDEX], tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, tagGangCardResult &GangCardResult); //杠牌分析
     static uint8_t analyseHuCard(const uint8_t cbCardIndex[MAX_INDEX], tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, uint8_t cbCurrentCard, uint8_t &huKind, uint64_t &huRight, uint8_t &huSpecial, const uint8_t cbSendCardCount, const uint8_t cbOutCardCount, const bool bGangStatus, const bool bZimo, const bool bQiangGangStatus, uint8_t &cbFanShu, const bool bCheck);    //胡牌分析，返回胡牌类型
     static uint8_t analyseHuCardCount(const uint8_t cbCardIndex[MAX_INDEX], tagWeaveItem WeaveItem[], uint8_t cbWeaveCount);    //获取胡牌的数量
@@ -127,24 +121,26 @@ public://分析函数
     static bool analyseCanHuCard(const uint8_t cbCardIndex[MAX_INDEX], tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, uint8_t cbCurrentCard);   //分析是否可以胡牌
     static bool analyseTingCardResult(const uint8_t cbCardIndex[MAX_INDEX], tagWeaveItem WeaveItem[], uint8_t cbWeaveCount , tagTingResult& tingResult);
     static bool canHu(const uint8_t cbCardIndexTemp[MAX_INDEX], const uint8_t cbCardCountTemp, const uint8_t cbCardIndex[MAX_INDEX], const uint8_t cbCardCount, tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, CAnalyseItemArray &AnalyseItemArray); //能胡牌
-private:    //胡牌类型
+private:
+    //胡牌类型
     static uint64_t pingHu(const uint8_t cbCardIndexTemp[MAX_INDEX], const uint8_t cbCardCountTemp, const uint8_t cbCardIndex[MAX_INDEX], const uint8_t cbCardCount, tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, CAnalyseItemArray &AnalyseItemArray); //平胡
     static uint64_t qingSe(const uint8_t cbCardIndexTemp[MAX_INDEX], const uint8_t cbCardCountTemp, const uint8_t cbCardIndex[MAX_INDEX], const uint8_t cbCardCount, tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, CAnalyseItemArray &AnalyseItemArray); //清一色
     static uint64_t pengPengHu(const uint8_t cbCardIndexTemp[MAX_INDEX], const uint8_t cbCardCountTemp, const uint8_t cbCardIndex[MAX_INDEX], const uint8_t cbCardCount, tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, CAnalyseItemArray &AnalyseItemArray);//碰碰胡
     static uint64_t qiDui(const uint8_t cbCardIndexTemp[MAX_INDEX], const uint8_t cbCardCountTemp, const uint8_t cbCardIndex[MAX_INDEX], const uint8_t cbCardCount, tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, CAnalyseItemArray &AnalyseItemArray);//七对
     static uint64_t diaoYu(const uint8_t cbCardIndexTemp[MAX_INDEX], const uint8_t cbCardCountTemp, const uint8_t cbCardIndex[MAX_INDEX], const uint8_t cbCardCount, tagWeaveItem WeaveItem[], uint8_t cbWeaveCount, CAnalyseItemArray &AnalyseItemArray);//单钓
-private: //一些判断
+private:
+    //一些判断
     static uint8_t gangPai(const uint8_t cbCardIndex[MAX_INDEX]);    //手上有杠
     static uint8_t danZhang(const uint8_t cbCardCount);    //手上剩下一张牌
     static uint8_t tianHu(const uint8_t m_cbSendCardCount, const uint8_t m_cbOutCardCount);    //天胡
     static uint8_t diHu(const uint8_t m_cbSendCardCount, const uint8_t m_cbOutCardCount); //地胡
     static uint8_t kaZhang(const uint8_t cbCardIndex[MAX_INDEX], tagWeaveItem WeaveItem[], uint8_t cbWeaveCount);    //卡张
-private:    //胡牌方式
+private:
+    //胡牌方式
     static uint8_t ziMo(uint64_t llHuRight, const bool bGangStatus, const bool bZimo);//自摸
     static uint8_t gangKai(uint64_t llHuRight, const bool bGangStatus, const bool bZimo);//杠开
     static uint8_t qiangGang(uint64_t llHuRight, const bool bGangStatus, const bool bZimo);//枪杠
     static uint8_t jiePao(uint64_t llHuRight, const bool bGangStatus, const bool bZimo);//接炮
 };
-
 
 #endif //COCOSTUDIO_MAHJONG_GAMELOGIC_H

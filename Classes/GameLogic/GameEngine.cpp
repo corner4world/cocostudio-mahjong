@@ -602,13 +602,13 @@ bool GameEngine::onEventGameConclude(uint8_t cbChairID) {
     uint8_t m_cbLastBankerUser = m_cbBankerUser;    //保存上局庄家
 
     CMD_S_GameEnd GameEnd;
-    memset(&GameEnd, 0, sizeof(CMD_S_GameEnd));    //清空内存
+    memset(&GameEnd, 0, sizeof(CMD_S_GameEnd));
     //=================================计算马==============================================
     //uint8_t cbOkBird = 0;
-    uint8_t cb0 = 0;                //买到0位置
-    uint8_t cb1 = 0;                //买到1位置
-    uint8_t cb2 = 0;                //买到2位置
-    uint8_t cb3 = 0;                //买到3位置
+    uint8_t cb0 = 0;  //买到0位置
+    uint8_t cb1 = 0;  //买到1位置
+    uint8_t cb2 = 0;  //买到2位置
+    uint8_t cb3 = 0;  //买到3位置
     for (uint8_t i = 0; i < m_cbMa; i++) {
         uint8_t cbLast = --m_cbLeftCardCount;
         if (cbLast >= 0) {
@@ -867,4 +867,21 @@ bool GameEngine::onEventGameConclude(uint8_t cbChairID) {
     return true;
 }
 
+/**
+* 椅子视图切换成界面视图
+* @param cbChairID
+* @return
+*/
+uint8_t GameEngine::switchViewChairID(uint8_t cbChairID, uint8_t uMeChairID) {
+    return (cbChairID + m_CurrChair - uMeChairID) % m_CurrChair;
+}
+
+/**
+* 界面视图切换成椅子视图
+* @param cbViewID
+* @return
+*/
+uint8_t GameEngine::switchChairViewID(uint8_t cbViewID, uint8_t uMeChairID) {
+    return (cbViewID + uMeChairID) % m_CurrChair;
+}
 

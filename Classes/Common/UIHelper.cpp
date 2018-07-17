@@ -2,11 +2,27 @@
 // Created by farmer on 2018/7/4.
 //
 
+#include <cocos/audio/include/SimpleAudioEngine.h>
 #include "UIHelper.h"
 #include "GameCmd.h"
 #include "FvMask.h"
 #include "Utility.h"
 #include "GameLogic.h"
+#include "GameConfig.h"
+
+
+/**
+* 播放声音
+* @param file
+*/
+void UIHelper::playSound(std::string file) {
+    float volume = GameConfig::getInstance()->m_EffectsVolume;
+    if (volume > 0) {
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(volume);   //音量
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(file.c_str(), false);
+    }
+}
+
 
 /**
  * 根据Tag获取节点

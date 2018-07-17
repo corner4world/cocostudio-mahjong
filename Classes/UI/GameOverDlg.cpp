@@ -24,15 +24,13 @@ void GameOverDlg::onEnter() {
 }
 
 void GameOverDlg::onUILoaded() {
-    m_rootNode->setScale(0.5f);
+    m_rootNode->setScale(0.05f);
     m_rootNode->runAction(EaseElasticOut::create(ScaleTo::create(0.5f, 1.0f, 1.0f))); //动画
     m_rootNode->addChild(LayerColor::create(Color4B(0, 0, 0, 200)), -1);
     //
     m_btnClose->addClickEventListener([this](Ref* sender){
         DialogManager::shared()->closeAllDialog();
         GameEngine::GetGameEngine()->onGameStart();
-//        GameEngine::GetGameEngine()->init();
-//        Director::getInstance()->replaceScene(LoadingScene::create());
     });
 }
 
@@ -44,7 +42,7 @@ void GameOverDlg::showResult() {
     }
     //显示牌
     for (uint8_t i = 0; i < m_gameUI->m_GameEngine->getPlayerCount(); i++) {
-        uint8_t cbViewID = m_gameUI->switchViewChairID(i);
+        uint8_t cbViewID = m_gameUI->m_GameEngine->switchViewChairID(i, m_gameUI->m_MeChairID);
         Node *pPlayerViewNode = UIHelper::seekNodeByName(m_rootNode, "PlayerView_" + utility::toString((int) cbViewID));
         ui::ImageView *pOverImgHead = dynamic_cast<ui::ImageView *>(UIHelper::seekNodeByName(pPlayerViewNode, "ImageView_Over_Head")); //头像
         ui::Text *pOverScoreText = dynamic_cast<ui::Text *>(UIHelper::seekNodeByName(pPlayerViewNode, "Text_Over_Score"));       //分数
@@ -93,7 +91,7 @@ void GameOverDlg::showResult() {
             pImageRight->loadTexture(strImagePath);
             pImageCenter->loadTexture(strImagePath);
             pImageLeft->loadTexture(strImagePath);
-            uint8_t wProvideViewID = m_gameUI->switchViewChairID(weaveItem.cbProvideUser);
+            uint8_t wProvideViewID = m_gameUI->m_GameEngine->switchViewChairID(weaveItem.cbProvideUser, m_gameUI->m_MeChairID);
             switch (cbViewID) {
                 case 0:
                     switch (wProvideViewID) {

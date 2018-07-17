@@ -17,7 +17,7 @@ public:
 
     virtual void onEnter();
 
-    void setGameUI(GameLayer* game, CMD_S_GameEnd& data) {
+    void setGameUI(GameLayer* game, const CMD_S_GameEnd& data) {
         m_gameUI = game;
         memcpy(&GameEnd, &data, sizeof(CMD_S_GameEnd));
     }

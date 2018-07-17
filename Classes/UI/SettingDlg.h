@@ -14,8 +14,6 @@ public:
     virtual ~SettingDlg();
     CREATE_FUNC(SettingDlg);
 
-    virtual void onEnter();
-
 protected:
     virtual const char* csbName() const {return "res/SetLayer.csb";}
     virtual void onUILoaded();
