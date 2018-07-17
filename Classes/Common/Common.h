@@ -20,7 +20,5 @@ using namespace cocostudio::timeline;
     #define IS_BUILD_FOR_64_BIT     1
 #endif
 
-// 字符串拼接辅助宏
-#define   QUOTE_TEXT(...)   #__VA_ARGS__
 
 #endif

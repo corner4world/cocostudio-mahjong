@@ -154,6 +154,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\App\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Common\DelayCall.cpp" />
     <ClCompile Include="..\Classes\Common\GameConfig.cpp" />
     <ClCompile Include="..\Classes\Common\UIHelper.cpp" />
     <ClCompile Include="..\Classes\GameLogic\AIEngine.cpp" />
@@ -175,6 +176,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\App\AppDelegate.h" />
     <ClInclude Include="..\Classes\Common\Common.h" />
+    <ClInclude Include="..\Classes\Common\DelayCall.h" />
     <ClInclude Include="..\Classes\Common\FvMask.h" />
     <ClInclude Include="..\Classes\Common\GameCmd.h" />
     <ClInclude Include="..\Classes\Common\GameConfig.h" />

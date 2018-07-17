@@ -84,6 +84,9 @@
     <ClCompile Include="..\Classes\GameLogic\Player\RealPlayer.cpp">
       <Filter>src\GameLogic\Player</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Common\DelayCall.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameLogic\Player\RealPlayer.h">
       <Filter>src\GameLogic\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\DelayCall.h">
+      <Filter>src\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

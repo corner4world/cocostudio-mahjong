@@ -1,6 +1,7 @@
 
 #include "BaseScene.h"
 #include "DialogManager.h"
+#include "DelayCall.h"
 
 BaseScene::BaseScene() : m_androidEvent(nullptr)
 {
@@ -14,6 +15,7 @@ BaseScene::~BaseScene()
 // on "init" you need to initialize your instance
 bool BaseScene::init()
 {
+    DelayCall::clear();
     if ( !Scene::init() )
     {
         return false;
@@ -58,6 +60,7 @@ void BaseScene::addEventListener(const std::string& name, SEL_CallFuncO theFunct
 
 void BaseScene::update(float delta) {
     Scene::update(delta);
+    DelayCall::tick(delta);
 }
 
 void BaseScene::keyBackClicked() {

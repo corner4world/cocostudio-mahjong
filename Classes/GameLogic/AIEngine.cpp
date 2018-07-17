@@ -4,14 +4,13 @@
 
 #include "AIEngine.h"
 #include "IPlayer.h"
+#include "DelayCall.h"
 
 AIEngine::AIEngine() {
     m_GameEngine = GameEngine::GetGameEngine();
     m_cbSendCardData = 0;
     m_MeChairID = INVALID_CHAIR;
     initGame();
-    cocos2d::Director::getInstance()->getRunningScene()->addChild(this, -1);
-    //将节点加入到场景，用于启动定时任务
 }
 
 AIEngine::~AIEngine() {
@@ -60,7 +59,7 @@ bool AIEngine::onSendCardEvent(CMD_S_SendCard SendCard) {
             m_cbCardIndex[m_MeChairID][GameLogic::switchToCardIndex(SendCard.cbCardData)]++;
         }
         m_cbSendCardData = SendCard.cbCardData;
-        scheduleOnce(CC_SCHEDULE_SELECTOR(AIEngine::sendCard), time(NULL) % 2 + 0.8f);
+        DelayCall::add([this]() { sendCard(); }, time(NULL) % 2 + 0.8f);
     }
     return true;
 }
@@ -132,7 +131,7 @@ bool AIEngine::onOperateResultEvent(CMD_S_OperateResult OperateResult) {
                 uint8_t cbTempCardData[MAX_COUNT] = {0};
                 GameLogic::switchToCardData(m_cbCardIndex[m_MeChairID], cbTempCardData, static_cast<uint8_t>(MAX_COUNT - 1 - (m_cbWeaveItemCount[m_MeChairID] * 3))); //碰完需要出一张
                 m_cbSendCardData = cbTempCardData[0];
-                scheduleOnce(CC_SCHEDULE_SELECTOR(AIEngine::sendCard), time(NULL) % 2 + 0.5f);
+                DelayCall::add([this]() { sendCard(); }, time(NULL) % 2 + 0.5f);
             }
             break;
         }
@@ -184,7 +183,7 @@ bool AIEngine::onGameEndEvent(CMD_S_GameEnd& GameEnd) {
  * 出牌
  * @param f
  */
-void AIEngine::sendCard(float f) {
+void AIEngine::sendCard() {
     cocos2d::log("机器人出牌:%x",m_cbSendCardData);
     CMD_C_OutCard OutCard;
     memset(&OutCard, 0, sizeof(CMD_C_OutCard));
