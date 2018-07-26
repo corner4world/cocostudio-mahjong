@@ -30,7 +30,7 @@ void GameOverDlg::onUILoaded() {
     //
     m_btnClose->addClickEventListener([this](Ref* sender){
         DialogManager::shared()->closeAllDialog();
-        GameEngine::GetGameEngine()->onGameStart();
+        GameEngine::GetGameEngine()->onGameRestart();
     });
 }
 
