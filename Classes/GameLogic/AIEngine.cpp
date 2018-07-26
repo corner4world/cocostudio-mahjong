@@ -59,7 +59,17 @@ bool AIEngine::onSendCardEvent(CMD_S_SendCard SendCard) {
             m_cbCardIndex[m_MeChairID][GameLogic::switchToCardIndex(SendCard.cbCardData)]++;
         }
         m_cbSendCardData = SendCard.cbCardData;
-        DelayCall::add([this]() { sendCard(); }, time(NULL) % 2 + 0.8f);
+        if (SendCard.cbActionMask != WIK_NULL) {//发的牌存在动作，模拟发送操作通知
+            CMD_S_OperateNotify OperateNotify;
+            memset(&OperateNotify, 0, sizeof(CMD_S_OperateNotify));
+            OperateNotify.cbActionMask = SendCard.cbActionMask;
+            OperateNotify.cbActionCard = SendCard.cbCardData;
+            OperateNotify.cbGangCount = SendCard.cbGangCount;
+            memcpy(OperateNotify.cbGangCard, SendCard.cbGangCard, sizeof(OperateNotify.cbGangCard));
+            onOperateNotifyEvent(OperateNotify);
+        } else {
+            DelayCall::add([this]() { sendCard(); }, time(NULL) % 2 + 0.8f);
+        }
     }
     return true;
 }
