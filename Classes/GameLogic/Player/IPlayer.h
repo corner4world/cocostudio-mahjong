@@ -80,7 +80,7 @@ public:
     int getSexAsInt(){
         return (m_Sex == IPlayer::FEMALE ? 0 : 1);
     }
-    std::string getSexAsStr(){
+    const char* getSexAsStr(){
         return (m_Sex == IPlayer::FEMALE ? "female" : "male");
     }
 };
