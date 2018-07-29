@@ -32,10 +32,3 @@ void LoadingScene::onExit()
 	BaseScene::onExit();
 }
 
-void LoadingScene::keyBackClicked() {
-    if(DialogManager::shared()->isAnyDialogShown()) {
-        DialogManager::shared()->closeCurrentDialog();
-    } else {
-        // TODO: 还在继续按下返回键，难道是想要退出游戏？
-    }
-}

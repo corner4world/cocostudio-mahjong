@@ -14,7 +14,6 @@ public:
     virtual void onEnter();
     virtual void onExit();
     virtual bool init();
-    virtual void keyBackClicked();
 
     CREATE_FUNC(PlayScene);
 };

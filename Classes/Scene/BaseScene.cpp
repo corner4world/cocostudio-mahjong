@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include "DialogManager.h"
 #include "DelayCall.h"
+#include "AlertDlg.h"
 
 BaseScene::BaseScene() : m_androidEvent(nullptr)
 {
@@ -64,6 +65,24 @@ void BaseScene::update(float delta) {
 }
 
 void BaseScene::keyBackClicked() {
+    AlertDlg* node = dynamic_cast<AlertDlg*>(DialogManager::shared()->getCurrentDialog());
+    if(node == nullptr) {
+        // 退出游戏
+        auto alert = AlertDlg::create();
+        alert->setAlertType(AlertDlg::ENUM_CONFIRM);
+        alert->setCallback([]() {
+            Director::getInstance()->end();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+            exit(0);
+#endif
+        }, []() {
+            DialogManager::shared()->closeCurrentDialog();
+        });
+        alert->setText("退出游戏后，本局游戏将直接结束无法恢复，确定是否退出？");
+        DialogManager::shared()->showDialog(alert);
+    } else {
+        DialogManager::shared()->closeCurrentDialog();
+    }
 }
 
 void BaseScene::keyMenuClicked() {
